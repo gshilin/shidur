@@ -1,0 +1,13 @@
+| $('.slides ul').html('#{@slides.join('').html_safe}');
+  $(function() {
+    $('.slides .draggable').draggable({
+           //appendTo: "body",
+           //containment: "window",
+           //cursor: "move",
+           revert: true,
+           handle: 'span'
+    });
+  });
+  if (defer1 !== undefined) {
+      defer1.resolve();
+  }

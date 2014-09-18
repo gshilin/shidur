@@ -1,0 +1,107 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require jquery-ui
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-rtl.min";
+
+body {
+  direction: rtl;
+  padding: 20px 20 px- $grid-gutter-width/2;
+}
+
+// SIDEBAR
+.sidebar {
+  position: fixed;
+  top: 20px;
+  bottom: 20px;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-flow: column nowrap;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: $grid-gutter-width / 2;
+  left: $grid-gutter-width;
+}
+
+.sidebar-navigation, .sidebar-authors, .sidebar-books, .sidebar-bookmarks {
+  flex: 0 0 auto;
+  margin-bottom: 10px;
+  padding: 10px 19px;
+  h3 {
+    margin-top: 0;
+  }
+  ul {
+    height: $line-height-computed * 3.5;
+    overflow: auto;
+    padding: 0 $line-height-computed / 2;
+    background: white;
+  }
+}
+
+.sidebar-books {
+  flex: 1 1 auto;
+  position: relative;
+  ul {
+    height: auto;
+    position: absolute;
+    top: 46px;
+    left: 19px;
+    right: 19px;
+    bottom: 10px;
+  }
+}
+
+.sidebar-bookmarks {
+  margin-bottom: 0;
+}
+
+.wrap {
+  height: 170px;
+  position: relative;
+  overflow: hidden;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 6.5em;
+  padding: 2% 10%;
+  background: linear-gradient(left, hsla(36, 18, 74, 0.6) 0%, hsla(36, 18, 74, 0.90) 15%, hsla(36, 18, 74, 0.90) 85%, hsla(36, 18, 74, 0.6) 100%);
+  color: hsl(0, 0, 0);
+  text-shadow: 0 0 1px #7d7c7b;
+  font-size: 25px;
+  line-height: 1.2;
+  box-shadow: inset 0 0 40px hsla(0, 0, 0, 0.4);
+}
+
+.slides {
+  position: relative;
+  z-index: 5000;
+  .handle {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: white;
+    background: gray;
+    padding: 5px 4px 3px 5px;
+    border-radius: 5px;
+  }
+
+}

@@ -1,0 +1,1 @@
+iconv -f WINDOWS-1255 -t UTF-8 shishim-ribo-neshamot.txt -o shishim-ribo-neshamot-utf8.txt

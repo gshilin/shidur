@@ -1,0 +1,28 @@
+.container-fluid
+  .row
+    .col-md-8.col-md-offset-4.slides
+      ul.list-unstyled
+  .row
+    .col-md-4.sidebar
+      .sidebar-container
+        .well.sidebar-navigation
+          .row
+            .col-md-6
+              form#locate-page
+                label.control-label.sr-only מספר דף:
+                input.form-control placeholder="מספר דף"
+            .col-md-6
+              form#locate-slide
+                label.control-label.sr-only מספר שקף:
+                input.form-control placeholder="מספר שקף"
+        .well.sidebar-authors
+          h3 מחברים
+          ul.list-unstyled
+            - @authors.each do |author|
+              li = link_to author, author_path(author), remote: true
+        .well.sidebar-books
+          h3 ספרים
+          ul.list-unstyled
+        .well.sidebar-bookmarks
+          h3 bookmarks
+          ul.list-unstyled

@@ -1,0 +1,10 @@
+| $('.sidebar-books ul, .slides ul').empty();
+  var books = [
+- @books.each do |path, book|
+  | '<li><a data-remote="true" href="#{book_path(path.gsub('.', '%2E'))}">#{book}</a></li>'
+|
+  ];
+  $('.sidebar-books ul').html(books.join(''));
+  if (defer0 !== undefined) {
+      defer0.resolve();
+  }
