@@ -91,7 +91,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
     ref (1.0.5)
-    ruby-filemagic (0.6.1)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -142,7 +141,6 @@ DEPENDENCIES
   jquery-ui-rails
   puma
   rails (= 4.1.5)
-  ruby-filemagic
   sass-rails (~> 4.0.3)
   slim
   spring

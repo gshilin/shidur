@@ -48,5 +48,3 @@ gem 'puma'
 gem 'jquery-ui-rails'
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
-
-gem 'ruby-filemagic'
