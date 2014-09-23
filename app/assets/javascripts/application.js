@@ -60,7 +60,7 @@ function gotoBookmark(author, title, pageNo, slideNo) {
     if (target.length > 0) {
         var newpos = target.offset().top - $('.slides ul li').first().offset().top;
         console.log("Animating to " + newpos);
-        $('body').animate({
+        $('html,body').animate({
             scrollTop: newpos
         }, 500);
     } else {
