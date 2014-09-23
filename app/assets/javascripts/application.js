@@ -129,7 +129,7 @@ $(function () {
 
     bookmarks.indexedDB.open();
 
-    $('.sidebar-navigation form').on('submit', function () {
+    $('.sidebar-navigation form').on('submit', function (event) {
         event.stopPropagation();
         event.stopImmediatePropagation();
         gotoSlide();
