@@ -17,30 +17,13 @@
 //= require jquery.cookie
 //= require_tree .
 
-var bigWindow = window.open('', 'big_window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no');
+var bigWindow = window.open('', 'Big Window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no');
 
 function gotoSlide() {
     var pageNo = $('#locate-page').find('input').val();
-    var page = $('[data-page="' + pageNo + '"]').first();
     var slideNo = $('#locate-slide').find('input').val();
-    var slide = $('[data-letter="' + slideNo + '"]').first();
-    var both = $('[data-page="' + pageNo + '"][data-letter="' + slideNo + '"]').first();
-    var target = [];
 
-    if (both.length > 0) {
-        target = both;
-    } else if (page.length > 0) {
-        target = page;
-    } else if (slide.length > 0) {
-        target = slide;
-    }
-
-    if (target.length > 0) {
-        var newpos = target.offset().top - $('.slides ul li').first().offset().top;
-        $('body').animate({
-            scrollTop: newpos
-        }, 500);
-    }
+    gotoBookmark('author', 'title', pageNo, slideNo);
 }
 
 function gotoBookmark(author, title, pageNo, slideNo) {
@@ -59,12 +42,7 @@ function gotoBookmark(author, title, pageNo, slideNo) {
 
     if (target.length > 0) {
         var newpos = target.offset().top - $('.slides ul li').first().offset().top;
-        console.log("Animating to " + newpos);
-        $('html,body').animate({
-            scrollTop: newpos
-        }, 500);
-    } else {
-        console.log("Unable to animate...");
+        $('html,body').animate({ scrollTop: newpos}, 500);
     }
 }
 
