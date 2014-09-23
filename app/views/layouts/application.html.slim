@@ -9,6 +9,13 @@ html lang="he"
     = stylesheet_link_tag    'application', media: 'all'
     = csrf_meta_tags
   body
+    nav.navbar.navbar-default role='navigation'
+      .container-fluid
+        ui.nav.navbar-nav.navbar-right
+          li
+            a href=admin_books_path Admin
+          li
+            a href=root_path Slides
 
     = yield
 

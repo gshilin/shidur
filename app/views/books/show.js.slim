@@ -1,9 +1,6 @@
-| $('.slides ul').html('#{@slides.join('').html_safe}');
+| $('.slides ul').html('#{@slides.html_safe}');
   $(function() {
     $('.slides .draggable').draggable({
-           //appendTo: "body",
-           //containment: "window",
-           //cursor: "move",
            revert: true,
            handle: 'span'
     });

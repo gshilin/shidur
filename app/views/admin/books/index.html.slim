@@ -1,0 +1,23 @@
+header.subhead
+  h2.pull-right ספרים
+  = link_to 'ספר חדש', new_admin_book_path, class: 'btn btn-success btn-large pull-left'
+br
+.clr
+section
+  table.table.table-striped.table-bordered.table-condensed
+    thead
+      tr
+        th ID
+        th מחבר
+        th כותרת
+        th Actions
+    tbody
+      - @books.each do |book|
+        tr
+          td = book.id
+          td = book.author
+          td = book.title
+          td
+            = link_to 'Edit', edit_admin_book_path(book)
+            br
+            = link_to 'Destroy', admin_book_path(book), :data => { :confirm => 'Are you sure?'}, :method => :delete

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.5'
+gem 'rails', '4.1.6'
 # Use pg as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -32,6 +32,8 @@ group :development do
 	gem 'binding_of_caller'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 	gem 'spring'
+  gem 'annotate', '~> 2.6.5'
+  gem 'ruby_parser'
 end
 
 # Use ActiveModel has_secure_password
@@ -52,3 +54,4 @@ gem 'puma'
 gem 'jquery-ui-rails'
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
+gem 'simple_form'

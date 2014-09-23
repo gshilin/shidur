@@ -19,13 +19,13 @@
 
 body {
   direction: rtl;
-  padding: 20px 20 px- $grid-gutter-width/2;
+  padding: 0 20px;
 }
 
 // SIDEBAR
 .sidebar {
   position: fixed;
-  top: 20px;
+  top: 60px;
   bottom: 20px;
 }
 
@@ -103,5 +103,14 @@ body {
     padding: 5px 4px 3px 5px;
     border-radius: 5px;
   }
+  .active {
+    background: red;
+  }
+}
 
+#load_from_disk {
+  width: 20%;
+  &.over {
+    border: 2px dashed #000;
+  }
 }
