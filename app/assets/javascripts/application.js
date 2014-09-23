@@ -43,6 +43,28 @@ function gotoSlide() {
     }
 }
 
+function gotoBookmark(author, title, pageNo, slideNo) {
+    var page = $('[data-page="' + pageNo + '"]').first();
+    var slide = $('[data-letter="' + slideNo + '"]').first();
+    var both = $('[data-page="' + pageNo + '"][data-letter="' + slideNo + '"]').first();
+    var target = [];
+
+    if (both.length > 0) {
+        target = both;
+    } else if (page.length > 0) {
+        target = page;
+    } else if (slide.length > 0) {
+        target = slide;
+    }
+
+    if (target.length > 0) {
+        var newpos = target.offset().top - $('.slides ul li').first().offset().top;
+        $('body').animate({
+            scrollTop: newpos
+        }, 500);
+    }
+}
+
 function displayLiveSlide(content) {
     $(bigWindow.document.head).html('<meta charset="utf-8"><title>Big Window</title><style>' +
     '* { -moz-box-sizing: border-box; box-sizing: border-box; }' +
