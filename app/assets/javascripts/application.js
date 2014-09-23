@@ -63,6 +63,8 @@ function gotoBookmark(author, title, pageNo, slideNo) {
         $('body').animate({
             scrollTop: newpos
         }, 500);
+    } else {
+        console.log("Unable to animate...");
     }
 }
 
