@@ -5,12 +5,12 @@ function gotoSlide() {
     var page = $('#locate-page').find('input').val();
     var letter = $('#locate-slide').find('input').val();
 
-    if (page === undefined) {
-        if (letter !== undefined) {
+    if (page === undefined || page === '') {
+        if (letter !== undefined && letter !== '') {
             $('.slides [data-letter="' + letter + '"]').click();
         }
     } else {
-        if (letter !== undefined) {
+        if (letter !== undefined && letter !== '') {
             $('.slides [data-page="' + page + '"][data-letter="' + letter + '"]').click();
         } else {
             $('.slides [data-page="' + page + '"]').click();
