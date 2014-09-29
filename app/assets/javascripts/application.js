@@ -27,23 +27,14 @@ function gotoSlide() {
 }
 
 function gotoBookmark(author, title, pageNo, slideNo) {
-    var page = $('[data-page="' + pageNo + '"]').first();
-    var slide = $('[data-letter="' + slideNo + '"]').first();
-    var both = $('[data-page="' + pageNo + '"][data-letter="' + slideNo + '"]').first();
-    var target = [];
-
-    if (both.length > 0) {
-        target = both;
-    } else if (page.length > 0) {
-        target = page;
-    } else if (slide.length > 0) {
-        target = slide;
-    }
-
-    if (target.length > 0) {
-        var newpos = target.offset().top - $('.slides ul li').first().offset().top;
-        $('html,body').animate({ scrollTop: newpos}, 500);
-    }
+    $.cookie('current-slide-author', author, {expires: 7, path: '/'});
+    $.cookie('current-slide-book', title, {expires: 7, path: '/'});
+    $.cookie('current-slide-page', pageNo, {expires: 7, path: '/'});
+    $.cookie('current-slide-slide', slideNo, {expires: 7, path: '/'});
+    restoreState().then(restoreState1).then(restoreState2).done(function () {
+        defer0 = null;
+        defer1 = null;
+    });
 }
 
 function displayLiveSlide(content) {
@@ -63,6 +54,7 @@ function activateSlide(self) {
     $('.slides li').removeClass('active');
     var currentSlide = $(self);
     currentSlide.addClass('active');
+    $('.navbar-brand').text('דף ' + currentSlide.data('page'));
     var newpos = currentSlide.offset().top - $('.slides ul li').first().offset().top;
     $('.slides ul').animate({
         scrollTop: newpos
@@ -119,13 +111,14 @@ var defer1 = null;
 
 function restoreState() {
     $('.sidebar-authors [href="' + $.cookie('current-slide-author') + '"]').click();
+    $('.sidebar-authors [href="' + $.cookie('current-slide-author') + '"]').parent().addClass('active');
 
     defer0 = $.Deferred();
     return defer0.promise();
 }
 
 $(function () {
-    var step = restoreState().then(restoreState1).then(restoreState2).done(function () {
+    restoreState().then(restoreState1).then(restoreState2).done(function () {
         defer0 = null;
         defer1 = null;
     });
