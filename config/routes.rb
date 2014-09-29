@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :authors, only: [ :index, :show ]
   resources :books, only: [ :index, :show ]
 
+  resources :big_windows, only: [:index]
+
   namespace :admin do
     resources :books
   end

@@ -17,7 +17,7 @@
 //= require jquery.cookie
 //= require_tree .
 
-var bigWindow = window.open('', 'Big Window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no');
+var bigWindow = window.open('/big_windows', 'Big Window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no');
 
 function gotoSlide() {
     var pageNo = $('#locate-page').find('input').val();
@@ -38,16 +38,7 @@ function gotoBookmark(author, title, pageNo, slideNo) {
 }
 
 function displayLiveSlide(content) {
-    $(bigWindow.document.head).html('<meta charset="utf-8"><title>Big Window</title><style>' +
-    '* { -moz-box-sizing: border-box; box-sizing: border-box; }' +
-    'p {display: none;}' +
-    '.wrap { height: 170px; width: 100%; direction: rtl; position: absolute; bottom: 0; left: 0; overflow: hidden; }' +
-    '.backdrop { width: 100%; height: 170px; padding: 2% 10%;' +
-    'background: -webkit-linear-gradient(left, rgba(201, 191, 177, 0.6) 0%, rgba(201, 191, 177, 0.9) 15%, rgba(201, 191, 177, 0.9) 85%, rgba(201, 191, 177, 0.6) 100%);' +
-    'background: linear-gradient(left, rgba(201, 191, 177, 0.6) 0%, rgba(201, 191, 177, 0.9) 15%, rgba(201, 191, 177, 0.9) 85%, rgba(201, 191, 177, 0.6) 100%);' +
-    'color: black; text-shadow: 0 0 1px #7d7c7b; font-size: 25px; line-height: 1.2; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4); }' +
-    '</style>');
-    $(bigWindow.document.body).html(content);
+    $(bigWindow.document.body.content).html(content);
 }
 
 function activateSlide(self) {
