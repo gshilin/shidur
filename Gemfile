@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.0'
 
 group :production do
   gem 'rails_12factor'
+  gem 'heroku_rails_deflate'
 end
 
 group :development do
