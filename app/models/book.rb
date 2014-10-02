@@ -19,7 +19,6 @@ class Book < ActiveRecord::Base
     subletter = 0
     content = []
     data.split(/\n|\r\n/).each do |line|
-      a =1
       case
         when line =~ /^\s*$/
         when line =~ /^%author/

@@ -1,4 +1,3 @@
-
 var bigWindow = window.open('/big_windows', 'Big Window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no');
 
 function gotoSlide() {
@@ -13,7 +12,7 @@ function gotoSlide() {
         if (letter !== undefined && letter !== '') {
             $('.slides [data-page="' + page + '"][data-letter="' + letter + '"]').click();
         } else {
-            $('.slides [data-page="' + page + '"]').click();
+            $('.slides [data-page="' + page + '"]').first().click();
         }
     }
 }
@@ -37,7 +36,7 @@ function activateSlide(self) {
     $('.slides li').removeClass('active');
     var currentSlide = $(self);
     currentSlide.addClass('active');
-    $('.navbar-brand').text('דף ' + currentSlide.data('page'));
+    $('.navbar-brand').text('דף ' + currentSlide.data('page') + ' שקף ' + currentSlide.data('letter')).data('page', currentSlide.data('page')).data('letter', currentSlide.data('letter'));
     var newpos = currentSlide.offset().top - $('.slides ul li').first().offset().top;
     $('html, body').animate({
         scrollTop: newpos
@@ -132,11 +131,22 @@ $(function () {
     $('.slides').on('click', 'li', function () {
         activateSlide(this);
     });
+
     $('.sidebar-authors').on('click', 'li', function () {
         activateAuthor(this);
     });
+
     $('.sidebar-books').on('click', 'li', function () {
         activateBook(this);
+    });
+
+    $('.navbar-header').on('click', '.navbar-brand', function (evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        var page = $(this).data('page');
+        var letter = $(this).data('letter');
+        $('.slides [data-page="' + page + '"][data-letter="' + letter + '"]').click();
     });
 
     FileHandler.init('load_from_disk');
@@ -175,11 +185,11 @@ var FileHandler = {
         evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
     },
 
-    handleDragEnter: function(evt) {
+    handleDragEnter: function (evt) {
         FileHandler.dropZone.classList.add('over');
     },
 
-    handleDragLeave: function(evt) {
+    handleDragLeave: function (evt) {
         FileHandler.dropZone.classList.remove('over');
     },
 
