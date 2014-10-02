@@ -1,7 +1,7 @@
 | $('.sidebar-books ul, .slides ul').empty();
   var books = [
 - @titles.each do |id, title|
-  | '<li><a data-remote="true" href="#{book_path(id)}">#{title}</a></li>'
+  | '<li><a data-remote="true" href="#{book_path(id)}">#{title}</a></li>',
 |
   ];
   $('.sidebar-books ul').html(books.join(''));

@@ -8,11 +8,16 @@ class Admin::BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(book_params)
-    if @book.save
-      redirect_to admin_books_url, notice: 'Successfully created book.'
+    @book = Book.where(author: params[:book][:author], title: params[:book][:title]).first
+    if @book && @book.update_attributes(book_params)
+      redirect_to admin_books_url, notice: 'Successfully updated book.'
     else
-      render :action => 'new'
+      @book = Book.new(book_params)
+      if @book.save
+        redirect_to admin_books_url, notice: 'Successfully created book.'
+      else
+        render :action => 'new'
+      end
     end
   end
 

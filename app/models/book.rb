@@ -12,12 +12,15 @@
 #
 
 class Book < ActiveRecord::Base
+
   def content=(data)
-    slides = []
-    page = 0
-    letter = 0
-    subletter = 0
-    content = []
+    self.content = data
+
+    slides        = []
+    page          = 0
+    letter        = 0
+    subletter     = 0
+    slide_content = []
     data.split(/\n|\r\n/).each do |line|
       case
         when line =~ /^\s*$/
@@ -26,29 +29,29 @@ class Book < ActiveRecord::Base
         when line =~ /^%page\s+(.+)\s*$/
           page = $1
         when line =~ /^%letter\s+(.+)\s*$/
-          unless content.blank?
+          unless slide_content.blank?
             subletter += 1
-            slides << add_content(page, letter, subletter, content)
-            content = []
+            slides << add_content(page, letter, subletter, slide_content)
+            slide_content = []
           end
-          letter = $1
+          letter    = $1
           subletter = 0
         when line =~ /^%break$/
-          unless content.blank?
+          unless slide_content.blank?
             subletter += 1
-            slides << add_content(page, letter, subletter, content)
-            content = []
+            slides << add_content(page, letter, subletter, slide_content)
+            slide_content = []
           end
         else
-          content << line.chop.gsub(/'/, '&#39;')
+          slide_content << line.chop.gsub(/'/, '&#39;')
       end
     end
-    slides << add_content(page, letter, subletter, content) unless content.blank?
+    slides << add_content(page, letter, subletter, slide_content) unless slide_content.blank?
     self.slides = slides.join('')
   end
 
   def self.authors
-    Book.order(:author).pluck(:author)
+    Book.distinct.order(:author).pluck(:author)
   end
 
   def self.titles(author_name)
