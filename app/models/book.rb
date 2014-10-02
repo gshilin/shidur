@@ -14,7 +14,7 @@
 class Book < ActiveRecord::Base
 
   def content=(data)
-    self.content = data
+    # self.content = data
 
     slides        = []
     page          = 0
