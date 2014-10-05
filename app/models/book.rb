@@ -43,7 +43,7 @@ class Book < ActiveRecord::Base
             slide_content = []
           end
         else
-          slide_content << line.chop.gsub(/'/, '&#39;')
+          slide_content << line.gsub(/'/, '&#39;').gsub(/^(\.\d+(\/\d+)*)\s/, "<bdi dir=\"ltr\">\\1</bdi>&nbsp;")
       end
     end
     slides << add_content(page, letter, subletter, slide_content) unless slide_content.blank?
