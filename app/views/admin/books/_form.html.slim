@@ -1,4 +1,12 @@
 = simple_form_for ['admin', @book], html: { multipart: true, role: :form } do |f|
+  - if @book.errors.any?
+    #error_explanation
+      .alert.alert-danger
+        => pluralize(@book.errors.count, 'error')
+        | prohibited this book from being saved:
+      ul
+        - @book.errors.full_messages.each do |msg|
+          li = msg
   .form-group
     #load_from_disk.well.well-lg Drop file here
     br
