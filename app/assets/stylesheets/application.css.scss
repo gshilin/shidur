@@ -135,7 +135,8 @@ body {
 }
 
 #error_explanation {
-  direction: ltr;
+  clear: both;
+  direction: rtl;
   color: #f00;
   ul {
     list-style: disc;
@@ -143,7 +144,6 @@ body {
   }
 }
 
-.field_with_errors {
-  @extend .control-group;
-  @extend .error;
+.help-inline {
+  color: red;
 }

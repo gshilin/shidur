@@ -2,15 +2,17 @@
   - if @book.errors.any?
     #error_explanation
       .alert.alert-danger
-        => pluralize(@book.errors.count, 'error')
-        | prohibited this book from being saved:
+        => @book.errors.count
+        | שגיעות לא מרשול לשמור ספר
       ul
         - @book.errors.full_messages.each do |msg|
           li = msg
   .form-group
-    #load_from_disk.well.well-lg Drop file here
+    #load_from_disk.well.well-lg זרוק קובץ כאן
     br
-    = f.button :submit, class: 'btn btn-primary btn-large', disable_with: 'Please wait...'
+    = button_tag 'שמור ספר', class: 'btn btn-primary btn-large', disable_with: 'אנא המתן...'
+    | &nbsp;
+    = button_tag 'בדוק', class: 'validate btn btn-primary btn-large', disable_with: 'אנא המתן...'
     | &nbsp;
     button.btn.btn-large onclick="location.href='#{admin_books_url}'; return false;" type='button' בטל
 
@@ -20,6 +22,8 @@
     = f.input :content, label: 'תוכן', input_html: {class: 'form-control', rows: 20}
 
   .form-group
-    = f.button :submit, class: 'btn btn-primary btn-large', disable_with: 'Please wait...'
+    = button_tag 'שמור ספר', class: 'btn btn-primary btn-large', disable_with: 'Please wait...'
+    | &nbsp;
+    = button_tag 'בדוק', class: 'validate btn btn-primary btn-large', disable_with: 'Please wait...'
     | &nbsp;
     button.btn.btn-large onclick="location.href='#{admin_books_url}'; return false;" type='button' בטל

@@ -22,6 +22,9 @@ end
 
 class Book < ActiveRecord::Base
 
+  validates_presence_of :author, message: 'שם מחבר לא יכול להיות ריק'
+  validates_presence_of :title, message: 'כותרת לא יכולה להיות ריקה'
+
   validates_with ContentValidator
 
   def content=(data)
@@ -41,6 +44,70 @@ class Book < ActiveRecord::Base
 
   def self.slides(book_id)
     Book.where(id: book_id).pluck(:slides).first
+  end
+
+  def test_data_for_slides
+    page      = 0
+    letter    = 0
+    subletter = 0
+
+    slide_content = []
+    slide_lines   = 0
+
+    has_author = false
+    has_title   = false
+    chech_lineno = false
+
+    self.content.split(/\n|\r\n/).each do |line|
+      case
+        when line =~ /^\s*$/
+        when line =~ /^%author/
+          has_author = true
+        when line =~ /^%book/
+          has_title = true
+        when line =~ /^%page\s+(.+)\s*$/
+          if $1.blank?
+            self.errors[:base] << "אין מספר דף  באיזור דף  #{page} אות #{letter}-#{subletter}"
+          end
+          page = $1
+          unless slide_content.blank?
+            slide_content = []
+            slide_lines   = 0
+          end
+        when line =~ /^%letter\s+(.+)\s*$/
+          if $1.blank?
+            self.errors[:base] << "אין מספר אות בדף #{page} אחרי אות #{letter}-#{subletter}"
+          end
+          if slide_content.blank?
+            subletter     += 1
+            slide_content = []
+            slide_lines   = 0
+          end
+          letter    = $1
+          subletter = 0
+          chech_lineno = true
+        when line =~ /^%break$/
+          unless slide_content.blank?
+            subletter     += 1
+            slide_content = []
+            slide_lines   = 0
+          else
+            self.errors[:base] << "אין תוכן בדף #{page} אות #{letter}-#{subletter}"
+          end
+        else
+          if chech_lineno
+            unless line =~ /^#{letter}/
+              self.errors[:base] << "מספר שורה אינו תואם בדף #{page} אות #{letter}-#{subletter}"
+            end
+            chech_lineno = false
+          end
+          slide_content << line.gsub(/'/, '&#39;').gsub(/^(\.\d+(\/\d+)*)\s/, "<bdi dir=\"ltr\">\\1</bdi>&nbsp;")
+          slide_lines += 1
+          self.errors[:base] << "יותר מדי שורות  #{page} אות #{letter}-#{subletter}" if slide_lines > 4
+      end
+    end
+    self.errors[:base] << 'שם מחבר לא יכול להיות ריק' unless has_author
+    self.errors[:base] << 'כותרת לא יכולה להיות ריקה' unless has_title
   end
 
   private
@@ -93,6 +160,7 @@ class Book < ActiveRecord::Base
       end
     end
     slides << add_content(page, letter, subletter, slide_content) unless slide_content.blank?
+
     result.blank? ? [true, slides] : [false, result]
   end
 end

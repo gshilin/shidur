@@ -150,6 +150,15 @@ $(function () {
     });
 
     FileHandler.init('load_from_disk');
+
+    $('.validate').on('click', '', function (evt) {
+        evt.stopPropagation();
+        //evt.preventDefault();
+
+        var form = $(this).closest('form');
+        form.attr('action', '/admin/books/validate');
+        form.find("input[name='_method']").attr('value', 'post')
+    });
 });
 
 var FileHandler = {
@@ -204,3 +213,4 @@ var FileHandler = {
         }
     }
 };
+

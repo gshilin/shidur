@@ -41,6 +41,12 @@ class Admin::BooksController < ApplicationController
     redirect_to admin_books_url, notice: 'Successfully destroyed book.'
   end
 
+  def validate
+    @book = Book.new(book_params)
+    @book.test_data_for_slides
+    render action: 'edit'
+  end
+
   private
 
   def book_params
