@@ -131,13 +131,13 @@ class Book < ActiveRecord::Base
         when line =~ /^%author/
         when line =~ /^%book/
         when line =~ /^%page\s+(.+)\s*$/
-          page = $1
           unless slide_content.blank?
             subletter += 1
             slides << add_content(page, letter, subletter, slide_content)
             slide_content = []
             slide_lines   = 0
           end
+          page = $1
         when line =~ /^%letter\s+(.+)\s*$/
           unless slide_content.blank?
             subletter += 1
