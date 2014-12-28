@@ -31,7 +31,7 @@ class Book < ActiveRecord::Base
     super
 
     result, slides = Book.parse_data_for_slides(data)
-    write_attribute :slides, slides.join('') if result
+    write_attribute :slides, slides.to_json if result
   end
 
   def self.authors
@@ -113,7 +113,8 @@ class Book < ActiveRecord::Base
   private
 
   def self.add_content(page, letter, subletter, content)
-    "<li class=\"draggable\" data-page=\"#{page}\" data-letter=\"#{letter}#{subletter == 1 ? '' : "-#{subletter}"}\"><div class=\"wrap\"><div class=\"backdrop\"><span class=\"handle glyphicon glyphicon-move\"></span>" + content.join('<br/>') + '</div></div></li>'
+    # "<li class=\"draggable\" data-page=\"#{page}\" data-letter=\"#{letter}#{subletter == 1 ? '' : "-#{subletter}"}\"><div class=\"wrap\"><div class=\"backdrop\"><span class=\"handle glyphicon glyphicon-move\"></span>" + content.join('<br/>') + '</div></div></li>'
+    {page: page, letter: letter, subletter: subletter, content: content.join('<br/>')}
   end
 
   def self.parse_data_for_slides(data)

@@ -214,3 +214,14 @@ var FileHandler = {
     }
 };
 
+var ractive = new Ractive({
+    el: '.slides ul',
+    template: '#slides',
+    data: {
+        slides: slides,
+        calc_subletter: function(subletter) {
+            return subletter === 1 ? "" : ("-" + subletter);
+        }
+    },
+    slides: []
+});

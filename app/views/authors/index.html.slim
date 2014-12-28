@@ -1,9 +1,9 @@
 .container-fluid
   .row
-    .col-md-10.col-md-offset-2.slides
+    .col-md-8.col-md-offset-4.slides
       ul.list-unstyled
   .row
-    .col-md-2.sidebar
+    .col-md-4.sidebar
       .sidebar-container
         .well.sidebar-navigation
           .row
@@ -27,3 +27,12 @@
         .well.sidebar-bookmarks
           h3 bookmarks
           ul.list-unstyled
+
+script#slides type='text/ractive'
+  | {{#each slides}}
+  li.draggable data-page="{{page}}" data-letter="{{letter}}{{ calc_subletter(subletter) }}"
+    .wrap
+      .backdrop
+        span.handle.glyphicon.glyphicon-move
+        | {{{content}}}
+  | {{/each}}

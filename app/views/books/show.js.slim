@@ -1,4 +1,6 @@
-| $('.slides ul').html('#{@slides.html_safe}');
+|
+  var $slides = #{@slides.html_safe};
+  ractive.set('slides', $slides);
   $(function() {
     $('.slides .draggable').draggable({
            revert: true,
