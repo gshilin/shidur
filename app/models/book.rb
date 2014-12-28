@@ -154,7 +154,9 @@ class Book < ActiveRecord::Base
             slide_lines   = 0
           end
         else
-          slide_content << line.gsub(/'/, '&#39;').gsub(/^(\.\d+(\/\d+)*)\s/, "<bdi dir=\"ltr\">\\1</bdi>&nbsp;")
+          line = line.gsub(/'/, '&#39;').gsub(/^(\.\d+(\/\d+)*)\s/, "<bdi dir=\"ltr\">\\1</bdi>&nbsp;")
+          line = "<h3>#{$1}</h3>" if line =~ /^%H\s+(.+)\s*$/
+          slide_content << line
           slide_lines += 1
           result << [page, letter, subletter] if slide_lines > 4
       end
