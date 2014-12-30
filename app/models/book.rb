@@ -54,8 +54,8 @@ class Book < ActiveRecord::Base
     slide_content = []
     slide_lines   = 0
 
-    has_author = false
-    has_title   = false
+    has_author   = false
+    has_title    = false
     chech_lineno = false
 
     self.content.split(/\n|\r\n/).each do |line|
@@ -83,8 +83,8 @@ class Book < ActiveRecord::Base
             slide_content = []
             slide_lines   = 0
           end
-          letter    = $1
-          subletter = 0
+          letter       = $1
+          subletter    = 0
           chech_lineno = true
         when line =~ /^%break$/
           unless slide_content.blank?
@@ -114,12 +114,12 @@ class Book < ActiveRecord::Base
 
   def self.add_content(page, letter, subletter, content)
     # "<li class=\"draggable\" data-page=\"#{page}\" data-letter=\"#{letter}#{subletter == 1 ? '' : "-#{subletter}"}\"><div class=\"wrap\"><div class=\"backdrop\"><span class=\"handle glyphicon glyphicon-move\"></span>" + content.join('<br/>') + '</div></div></li>'
-    {page: page, letter: letter, subletter: subletter, content: content.join('<br/>')}
+    { page: page, letter: letter, subletter: subletter, content: content.join('<br/>') }
   end
 
   def self.parse_data_for_slides(data)
     result        = []
-    slides        = []
+    slides        = [{ page: 0, letter: '1', subletter: 1, content: '' }]
     page          = 0
     letter        = 0
     subletter     = 0

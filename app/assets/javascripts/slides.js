@@ -223,5 +223,6 @@ var ractive = new Ractive({
             return subletter === 1 ? "" : ("-" + subletter);
         }
     },
+    twoway: false,
     slides: []
 });

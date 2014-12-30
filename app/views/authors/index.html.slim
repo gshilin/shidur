@@ -29,7 +29,7 @@
           ul.list-unstyled
 
 script#slides type='text/ractive'
-  | {{#each slides}}
+  | {{#each slides:num}}
   li.draggable data-page="{{page}}" data-letter="{{letter}}{{ calc_subletter(subletter) }}"
     .wrap
       .backdrop
