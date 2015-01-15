@@ -1,5 +1,13 @@
 var bigWindow = window.open('/big_windows', 'Big Window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no');
 
+function getQuestion() {
+    var l = window.location,
+        url = l.protocol + '//' + l.host + '/questions/0';
+    $.get(url, function (data) {
+        $('.sidebar-question .content').html(data);
+    });
+}
+
 function gotoSlide() {
     var page = $('#locate-page').find('input').val();
     var letter = $('#locate-slide').find('input').val();
@@ -30,6 +38,20 @@ function gotoBookmark(author, title, pageNo, slideNo) {
 
 function displayLiveSlide(content) {
     $(bigWindow.document.body).find(".content").html(content);
+}
+
+function displayLiveQuestion(content) {
+    $(bigWindow.document.body).find(".question").html(content);
+}
+
+var show_slide = true;
+
+function switch_slides_question() {
+    var question = $(bigWindow.document.body).find(".question")[0];
+    var slide = $(bigWindow.document.body).find(".slides")[0];
+    show_slide = !show_slide;
+    slide.style.display = show_slide ? 'block' : 'none';
+    question.style.display = show_slide ? 'none' : 'block';
 }
 
 function activateSlide(self) {
@@ -107,6 +129,16 @@ $(function () {
 
     bookmarks.indexedDB.open();
 
+    $('.show-question').on('click', function (event) {
+        var content = $('.sidebar-question .content').html();
+        displayLiveQuestion(content);
+    });
+    $('.switch-slides-question').on('click', function (event) {
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        switch_slides_question();
+        return false;
+    });
     $('.sidebar-navigation form').on('submit', function (event) {
         event.stopPropagation();
         event.stopImmediatePropagation();
@@ -159,6 +191,8 @@ $(function () {
         form.attr('action', '/admin/books/validate');
         form.find("input[name='_method']").attr('value', 'post')
     });
+
+    setInterval(getQuestion, 1000);
 });
 
 var FileHandler = {
@@ -219,7 +253,7 @@ var ractive = new Ractive({
     template: '#slides',
     data: {
         slides: slides,
-        calc_subletter: function(subletter) {
+        calc_subletter: function (subletter) {
             return subletter === 1 ? "" : ("-" + subletter);
         }
     },

@@ -4,9 +4,9 @@ html lang="he"
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge"
     meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-    title ShidurSlides
+    title Question
 
-    = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   body
     nav.navbar.navbar-fixed-top.navbar-default role='navigation'
@@ -17,8 +17,9 @@ html lang="he"
           li
             a href=admin_books_path Admin
           li
-            a href=root_path Slides
-
+            a href=root_path שקופיות
+          li
+            a href=new_question_path target='_blank' שאלה
     = yield
 
     = javascript_include_tag 'application'

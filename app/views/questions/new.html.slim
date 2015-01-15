@@ -1,0 +1,6 @@
+= simple_form_for @question do |f|
+  h3 שאלה
+
+  = f.input :question, label: false, as: :text, input_html: { class: 'form-control', rows: 3 }
+  br
+  = button_tag 'שלח שאלה', class: 'btn btn-danger btn-large pull-left', disable_with: 'אנא המתן...'
