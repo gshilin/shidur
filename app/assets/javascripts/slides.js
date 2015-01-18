@@ -4,7 +4,11 @@ function getQuestion() {
     var l = window.location,
         url = l.protocol + '//' + l.host + '/questions/0';
     $.get(url, function (data) {
-        $('.sidebar-question .content').html(data);
+        var old_data = $('.sidebar-question .content').html();
+        if (data !== old_data) {
+            $('.show-question').removeClass('btn-default').addClass('btn-success');
+            $('.sidebar-question .content').html(data);
+        }
     });
 }
 
@@ -132,6 +136,7 @@ $(function () {
     $('.show-question').on('click', function (event) {
         var content = $('.sidebar-question .content').html();
         displayLiveQuestion(content);
+        $('.show-question').removeClass('btn-success').addClass('btn-default');
     });
     $('.switch-slides-question').on('click', function (event) {
         event.stopPropagation();
