@@ -98,7 +98,7 @@ function activateSlide(self) {
     $('html, body').animate({
         scrollTop: newpos
     }, 500);
-    BigWindow.m.displayLiveSlide(currentSlide.html());
+    BigWindow.displayLiveSlide(currentSlide.html());
     $.cookie('current-slide-page', currentSlide.data('page'), {expires: 7, path: '/'});
     $.cookie('current-slide-letter', currentSlide.data('letter'), {expires: 7, path: '/'});
 }
