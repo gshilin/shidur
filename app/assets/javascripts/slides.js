@@ -52,7 +52,6 @@ function drawSlides(slides_array) {
 }
 
 function getQuestion() {
-    return; // ZZZ
     var l = window.location,
         url = l.protocol + '//' + l.host + '/questions/0';
     $.get(url, function (data) {
