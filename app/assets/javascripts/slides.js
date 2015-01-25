@@ -18,7 +18,7 @@ var BigWindow = {
         slide.style.display = this.show_slide ? 'block' : 'none';
         question.style.display = this.show_slide ? 'none' : 'block';
     }
-}
+};
 
 Handlebars.registerHelper('calcSubletter', function () {
     var subletter = this.subletter;
@@ -39,7 +39,7 @@ var RestoreState = {
         $('#locate-slide').find('input').val(letter);
         gotoSlide();
     }
-}
+};
 
 
 
@@ -52,6 +52,7 @@ function drawSlides(slides_array) {
 }
 
 function getQuestion() {
+    return; // ZZZ
     var l = window.location,
         url = l.protocol + '//' + l.host + '/questions/0';
     $.get(url, function (data) {
@@ -85,7 +86,7 @@ function gotoBookmark(author, title, pageNo, slideNo) {
     $.cookie('current-slide-book', title, {expires: 7, path: '/'});
     $.cookie('current-slide-page', pageNo, {expires: 7, path: '/'});
     $.cookie('current-slide-letter', slideNo, {expires: 7, path: '/'});
-    RestoreState.local();
+    RestoreState.remote();
 }
 
 function activateSlide(self) {
@@ -128,7 +129,7 @@ function activateBook(self) {
 }
 
 $(function () {
-    RestoreState.local();
+    RestoreState.remote();
 
     bookmarks.indexedDB.open();
 
