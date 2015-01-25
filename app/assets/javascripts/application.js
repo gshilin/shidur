@@ -14,7 +14,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require ractive
+//= require handlebars-v2.0.0
 //= require jquery.cookie
 //= require bookmarks
 //= require slides

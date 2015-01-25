@@ -1,3 +1,6 @@
+javascript:
+  var books = #{@books.to_json.html_safe};
+
 .container-fluid
   .row
     .col-md-8.col-md-offset-4.slides
@@ -17,10 +20,10 @@
                 input.form-control placeholder="מספר שקף"
         .well.sidebar-authors
           h3 מחברים
-          ul.list-unstyled
-            - @authors.each do |author|
+          ul.list-unstyled.authors
+            - @books.keys.each do |author|
               - unless author.blank?
-                li = link_to author, author_path(author), remote: true
+                li = link_to author, author
         .well.sidebar-books
           h3 ספרים
           ul.list-unstyled
@@ -35,9 +38,9 @@
           h3 שאלה
           .content
 
-script#slides type='text/ractive'
-  | {{#each slides:num}}
-  li.draggable data-page="{{page}}" data-letter="{{letter}}{{ calc_subletter(subletter) }}"
+script#slides-template type='text/x-handlebars-template'
+  | {{#each slides}}
+  li.draggable data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}"
     .wrap
       .backdrop
         span.handle.glyphicon.glyphicon-move

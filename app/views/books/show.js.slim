@@ -1,12 +1,7 @@
 |
-  var $slides = #{@slides.html_safe};
-  ractive.set('slides', $slides);
-  $(function() {
-    $('.slides .draggable').draggable({
-           revert: true,
-           handle: 'span'
-    });
+  drawSlides(JSON.parse(#{@slides.to_json.html_safe}));
+  RestoreState.remote();
+  $('.slides .draggable').draggable({
+    revert: true,
+    handle: 'span'
   });
-  if (defer1 !== undefined) {
-      defer1.resolve();
-  }

@@ -1,4 +1,55 @@
-var bigWindow = window.open('/big_windows', 'Big Window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no');
+var BigWindow = {
+    bigWindow: window.open('/big_windows', 'Big Window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no'),
+
+    show_slide: true,
+
+    displayLiveSlide: function(content) {
+        $(this.bigWindow.document.body).find(".content").html(content);
+    },
+
+    displayLiveQuestion: function(content) {
+        $(this.bigWindow.document.body).find(".question ").html(content);
+    },
+
+    switchSlidesQuestion: function() {
+        var question = $(this.bigWindow.document.body).find(".question")[0];
+        var slide = $(this.bigWindow.document.body).find(".slides")[0];
+        this.show_slide = !this.show_slide;
+        slide.style.display = this.show_slide ? 'block' : 'none';
+        question.style.display = this.show_slide ? 'none' : 'block';
+    }
+}
+
+Handlebars.registerHelper('calcSubletter', function () {
+    var subletter = this.subletter;
+    return subletter === 1 ? "" : ("-" + subletter);
+});
+
+var RestoreState = {
+    remote: function () {
+        var author = $.cookie('current-slide-author');
+        activateAuthor($('.sidebar-authors [href="' + author + '"]').parent());
+        activateBook($('.sidebar-books [href="' + $.cookie('current-slide-book') + '"]').parent());
+    },
+
+    local: function () {
+        var page = $.cookie('current-slide-page'),
+            letter = $.cookie('current-slide-letter');
+        $('#locate-page').find('input').val(page);
+        $('#locate-slide').find('input').val(letter);
+        gotoSlide();
+    }
+}
+
+
+
+var source = $('#slides-template').html();
+var template = Handlebars.compile(source);
+
+function drawSlides(slides_array) {
+    var slides = {slides: slides_array};
+    $('.slides ul').html(template(slides));
+}
 
 function getQuestion() {
     var l = window.location,
@@ -34,28 +85,7 @@ function gotoBookmark(author, title, pageNo, slideNo) {
     $.cookie('current-slide-book', title, {expires: 7, path: '/'});
     $.cookie('current-slide-page', pageNo, {expires: 7, path: '/'});
     $.cookie('current-slide-letter', slideNo, {expires: 7, path: '/'});
-    restoreState().then(restoreState1).then(restoreState2).done(function () {
-        defer0 = null;
-        defer1 = null;
-    });
-}
-
-function displayLiveSlide(content) {
-    $(bigWindow.document.body).find(".content").html(content);
-}
-
-function displayLiveQuestion(content) {
-    $(bigWindow.document.body).find(".question").html(content);
-}
-
-var show_slide = true;
-
-function switch_slides_question() {
-    var question = $(bigWindow.document.body).find(".question")[0];
-    var slide = $(bigWindow.document.body).find(".slides")[0];
-    show_slide = !show_slide;
-    slide.style.display = show_slide ? 'block' : 'none';
-    question.style.display = show_slide ? 'none' : 'block';
+    RestoreState.local();
 }
 
 function activateSlide(self) {
@@ -67,83 +97,54 @@ function activateSlide(self) {
     $('html, body').animate({
         scrollTop: newpos
     }, 500);
-    displayLiveSlide(currentSlide.html());
-    storeState(currentSlide);
-}
-
-function activateAuthor(self) {
-    $('.sidebar-authors li').removeClass('active');
-    var current = $(self);
-    current.addClass('active');
-    $.cookie('current-slide-author', current.find('a').attr('href'), {expires: 7, path: '/'});
-}
-
-function activateBook(self) {
-    $('.sidebar-books li').removeClass('active');
-    var current = $(self);
-    current.addClass('active');
-    $.cookie('current-slide-book', current.find('a').attr('href'), {expires: 7, path: '/'});
-}
-
-function storeState(currentSlide) {
+    BigWindow.m.displayLiveSlide(currentSlide.html());
     $.cookie('current-slide-page', currentSlide.data('page'), {expires: 7, path: '/'});
     $.cookie('current-slide-letter', currentSlide.data('letter'), {expires: 7, path: '/'});
 }
 
-function restoreState2() {
-    var page = $.cookie('current-slide-page'),
-        letter = $.cookie('current-slide-letter');
+function activateAuthor(self) {
+    var current = $(self);
+    $('.sidebar-authors li').removeClass('active');
+    current.addClass('active');
 
-    if (page === undefined) {
-        if (letter !== undefined) {
-            $('.slides [data-letter="' + letter + '"]').click();
-        }
-    } else {
-        if (letter !== undefined) {
-            $('.slides [data-page="' + page + '"][data-letter="' + letter + '"]').click();
-        } else {
-            $('.slides [data-page="' + page + '"]').click();
-        }
-    }
+    var author = current.text();
+    $.cookie('current-slide-author', author, {expires: 7, path: '/'});
+
+    var titles = books[author];
+    $('.slides ul').empty();
+    $('.sidebar-books ul').html(titles);
 }
 
-function restoreState1() {
-    $('.sidebar-books [href="' + $.cookie('current-slide-book') + '"]').click();
+function activateBook(self) {
+    var current = $(self);
+    $('.sidebar-books li').removeClass('active');
+    current.addClass('active');
 
-    defer1 = $.Deferred();
-    return defer1.promise();
-}
-
-var defer0 = null;
-var defer1 = null;
-
-function restoreState() {
-    $('.sidebar-authors [href="' + $.cookie('current-slide-author') + '"]').click();
-    $('.sidebar-authors [href="' + $.cookie('current-slide-author') + '"]').parent().addClass('active');
-
-    defer0 = $.Deferred();
-    return defer0.promise();
+    var href = current.find('a').attr('href');
+    $.cookie('current-slide-book', href, {expires: 7, path: '/'});
+    var l = window.location,
+        url = l.protocol + '//' + l.host + href;
+    $.getScript(url);
 }
 
 $(function () {
-    restoreState().then(restoreState1).then(restoreState2).done(function () {
-        defer0 = null;
-        defer1 = null;
-    });
+    RestoreState.local();
 
     bookmarks.indexedDB.open();
 
     $('.show-question').on('click', function (event) {
         var content = $('.sidebar-question .content').html();
-        displayLiveQuestion(content);
+        BigWindow.m.displayLiveQuestion(content);
         $('.show-question').removeClass('btn-success').addClass('btn-default');
     });
+
     $('.switch-slides-question').on('click', function (event) {
         event.stopPropagation();
         event.stopImmediatePropagation();
-        switch_slides_question();
+        BigWindow.m.switchSlidesQuestion();
         return false;
     });
+
     $('.sidebar-navigation form').on('submit', function (event) {
         event.stopPropagation();
         event.stopImmediatePropagation();
@@ -165,16 +166,19 @@ $(function () {
         }
     });
 
-    $('.slides').on('click', 'li', function () {
-        activateSlide(this);
+    $('.authors').on('click', 'li', function (event) {
+        activateAuthor(this);
+        return false;
     });
 
-    $('.sidebar-authors').on('click', 'li', function () {
-        activateAuthor(this);
+    $('.slides').on('click', 'li', function () {
+        activateSlide(this);
+        return false;
     });
 
     $('.sidebar-books').on('click', 'li', function () {
         activateBook(this);
+        return false;
     });
 
     $('.navbar-header').on('click', '.navbar-brand', function (evt) {
@@ -197,7 +201,7 @@ $(function () {
         form.find("input[name='_method']").attr('value', 'post')
     });
 
-    setInterval(getQuestion, 1000);
+    setInterval(getQuestion, 3000);
 });
 
 var FileHandler = {
@@ -252,16 +256,3 @@ var FileHandler = {
         }
     }
 };
-
-var ractive = new Ractive({
-    el: '.slides ul',
-    template: '#slides',
-    data: {
-        slides: slides,
-        calc_subletter: function (subletter) {
-            return subletter === 1 ? "" : ("-" + subletter);
-        }
-    },
-    twoway: false,
-    slides: []
-});

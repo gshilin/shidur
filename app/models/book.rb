@@ -34,12 +34,12 @@ class Book < ActiveRecord::Base
     write_attribute :slides, slides.to_json if result
   end
 
-  def self.authors
-    Book.distinct.order(:author).pluck(:author)
-  end
-
-  def self.titles(author_name)
-    Book.where(author: author_name).order(:title).pluck(:id, :title)
+  def self.titles_per_author
+    Book.order(:title).pluck(:id, :author, :title).inject({}) do |all, book|
+      all[book[1]] ||= ''
+      all[book[1]] += "<li><a href='#{Rails.application.routes.url_helpers.book_path(book[0])}'>#{book[2]}</a></li>"
+      all
+    end
   end
 
   def self.slides(book_id)
@@ -119,7 +119,7 @@ class Book < ActiveRecord::Base
 
   def self.parse_data_for_slides(data)
     result        = []
-    slides        = [{ page: 0, letter: '1', subletter: 1, content: '' }]
+    slides        = []
     page          = 0
     letter        = 0
     subletter     = 0
