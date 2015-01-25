@@ -135,14 +135,14 @@ $(function () {
 
     $('.show-question').on('click', function (event) {
         var content = $('.sidebar-question .content').html();
-        BigWindow.m.displayLiveQuestion(content);
+        BigWindow.displayLiveQuestion(content);
         $('.show-question').removeClass('btn-success').addClass('btn-default');
     });
 
     $('.switch-slides-question').on('click', function (event) {
         event.stopPropagation();
         event.stopImmediatePropagation();
-        BigWindow.m.switchSlidesQuestion();
+        BigWindow.switchSlidesQuestion();
         return false;
     });
 
