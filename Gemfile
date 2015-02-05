@@ -23,7 +23,7 @@ group :development do
 	gem 'spring'
   gem 'annotate', '~> 2.6.5'
   gem 'ruby_parser'
-  gem 'passenger'
+  #gem 'passenger'
 end
 
 gem 'slim'
@@ -34,3 +34,5 @@ gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'god', '0.13.4'
+gem 'websocket-rails', branch: 'threadsocket-rails-sync'
+

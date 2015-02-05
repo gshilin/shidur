@@ -13,17 +13,6 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require websocket_rails/main
+//= require event_controller_q
 //= require_self
-
-$('form').on('submit', function (event) {
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    var l = window.location,
-        url = l.protocol + '//' + l.host + '/questions';
-
-    $.post(url, 'question=' + $('#question_question').val(), function(data, status) {
-        alert(status + ' -- ' + data);
-    });
-
-    return false;
-});

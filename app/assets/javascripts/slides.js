@@ -3,15 +3,15 @@ var BigWindow = {
 
     show_slide: true,
 
-    displayLiveSlide: function(content) {
+    displayLiveSlide: function (content) {
         $(this.bigWindow.document.body).find(".content").html(content);
     },
 
-    displayLiveQuestion: function(content) {
+    displayLiveQuestion: function (content) {
         $(this.bigWindow.document.body).find(".question ").html(content);
     },
 
-    switchSlidesQuestion: function() {
+    switchSlidesQuestion: function () {
         var question = $(this.bigWindow.document.body).find(".question")[0];
         var slide = $(this.bigWindow.document.body).find(".slides")[0];
         this.show_slide = !this.show_slide;
@@ -28,6 +28,7 @@ Handlebars.registerHelper('calcSubletter', function () {
 var RestoreState = {
     remote: function () {
         var author = $.cookie('current-slide-author');
+        if (author === '') return;
         activateAuthor($('.sidebar-authors [href="' + author + '"]').parent());
         activateBook($('.sidebar-books [href="' + $.cookie('current-slide-book') + '"]').parent());
     },
@@ -42,9 +43,8 @@ var RestoreState = {
 };
 
 
-
-var source = $('#slides-template').html();
-var template = Handlebars.compile(source);
+var source;
+var template;
 
 function drawSlides(slides_array) {
     var slides = {slides: slides_array};
@@ -128,9 +128,16 @@ function activateBook(self) {
 }
 
 $(function () {
-    RestoreState.remote();
+    source = $('#slides-template').html();
+    if (source !== undefined) {
+        template = Handlebars.compile(source);
+    }
 
-    bookmarks.indexedDB.open();
+    if (typeof(books) !== "undefined") {
+        RestoreState.remote();
+
+        bookmarks.indexedDB.open();
+    }
 
     $('.show-question').on('click', function (event) {
         var content = $('.sidebar-question .content').html();

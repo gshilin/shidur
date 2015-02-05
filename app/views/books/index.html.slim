@@ -36,7 +36,16 @@ javascript:
             '
             a.btn.btn-default.show-question show question
           h3 שאלה
-          .content
+          .content style='border: 1px solid black;'
+            = @question
+          .container
+            .col-md-4
+              .form-inline.well
+                fieldset
+                  input#message.col-md-11 type="text"
+                  button#send.hidden.btn.btn-primary Send
+
+                #chat data-uri="#{request.host}:#{request.port}/websocket"
 
 script#slides-template type='text/x-handlebars-template'
   | {{#each slides}}

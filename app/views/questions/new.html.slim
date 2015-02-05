@@ -1,6 +1,16 @@
-= simple_form_for @question do |f|
-  h3 שאלה
+.container
+  .row
+    = simple_form_for @question do |f|
+      button#question.btn.btn-danger.btn-large.pull-left שלח שאלה
+      h3 שאלה
 
-  = f.input :question, label: false, as: :text, input_html: { class: 'form-control', rows: 3 }
-  br
-  = button_tag 'שלח שאלה', class: 'btn btn-danger btn-large pull-left', disable_with: 'אנא המתן...'
+      = f.input :question, label: false, as: :text, input_html: { class: 'form-control', rows: 3 }
+
+  .row
+    h3 Chat
+    .form-inline.well
+      fieldset
+        input#message.col-md-12 type="text"
+        button#send.hidden.btn.btn-primary Send
+
+    #chat.well data-uri="#{request.host}:#{request.port}/websocket"

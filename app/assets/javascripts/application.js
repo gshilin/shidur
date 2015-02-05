@@ -18,3 +18,6 @@
 //= require jquery.cookie
 //= require bookmarks
 //= require slides
+//= require websocket_rails/main
+//= require event_controller
+

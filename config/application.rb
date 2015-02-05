@@ -21,5 +21,6 @@ module ShidurSlides
     # config.i18n.default_locale = :de
 
     config.middleware.use Rack::Deflater
+    config.middleware.delete Rack::Lock # for Faye Websockets
   end
 end
