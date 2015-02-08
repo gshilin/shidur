@@ -51,18 +51,6 @@ function drawSlides(slides_array) {
     $('.slides ul').html(template(slides));
 }
 
-function getQuestion() {
-    var l = window.location,
-        url = l.protocol + '//' + l.host + '/questions/0';
-    $.get(url, function (data) {
-        var old_data = $('.sidebar-question .content').html();
-        if (data !== old_data) {
-            $('.show-question').removeClass('btn-default').addClass('btn-success');
-            $('.sidebar-question .content').html(data);
-        }
-    });
-}
-
 function gotoSlide() {
     var page = $('#locate-page').find('input').val();
     var letter = $('#locate-slide').find('input').val();
@@ -197,7 +185,7 @@ $(function () {
         $('.slides [data-page="' + page + '"][data-letter="' + letter + '"]').click();
     });
 
-    FileHandler.init('load_from_disk');
+    fileHandlerController.init('#load_from_disk');
 
     $('.validate').on('click', '', function (evt) {
         evt.stopPropagation();
@@ -207,59 +195,4 @@ $(function () {
         form.attr('action', '/admin/books/validate');
         form.find("input[name='_method']").attr('value', 'post')
     });
-
-    setInterval(getQuestion, 3000);
 });
-
-var FileHandler = {
-    dropZone: null,
-    handleFileSelect: function (evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        FileHandler.dropZone.classList.remove('over');
-
-        var file = evt.dataTransfer.files[0],
-            reader = new FileReader();
-
-        // Closure to capture the file information.
-        reader.onload = (function (theFile) {
-            return function (e) {
-                var result = e.target.result,
-                    lines = result.split(/\n|\r\n/),
-                    author = lines[0].split(/ +/).splice(1).join(' '),
-                    title = lines[1].split(/ +/).splice(1).join(' ');
-                document.getElementById('book_author').value = author;
-                document.getElementById('book_title').value = title;
-                document.getElementById('book_content').value = result;
-            };
-        })(file);
-
-        // Read in the image file as a data URL.
-        reader.readAsText(file);
-    },
-
-    handleDragOver: function (evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-    },
-
-    handleDragEnter: function (evt) {
-        FileHandler.dropZone.classList.add('over');
-    },
-
-    handleDragLeave: function (evt) {
-        FileHandler.dropZone.classList.remove('over');
-    },
-
-    init: function (id) {
-        // Setup the dnd listeners.
-        FileHandler.dropZone = document.getElementById(id);
-        if (FileHandler.dropZone !== null) {
-            FileHandler.dropZone.addEventListener('dragenter', FileHandler.handleDragEnter, false);
-            FileHandler.dropZone.addEventListener('dragleave', FileHandler.handleDragLeave, false);
-            FileHandler.dropZone.addEventListener('dragover', FileHandler.handleDragOver, false);
-            FileHandler.dropZone.addEventListener('drop', FileHandler.handleFileSelect, false);
-        }
-    }
-};

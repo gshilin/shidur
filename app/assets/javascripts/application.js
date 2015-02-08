@@ -16,6 +16,7 @@
 //= require bootstrap-sprockets
 //= require handlebars-v2.0.0
 //= require jquery.cookie
+//= require file_handler
 //= require bookmarks
 //= require slides
 //= require websocket_rails/main
