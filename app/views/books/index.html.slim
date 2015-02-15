@@ -45,7 +45,7 @@ javascript:
                   input#message.col-md-11 type="text"
                   button#send.hidden.btn.btn-primary Send
 
-                #chat data-uri="#{request.host}:#{request.port}/websocket"
+                #chat.well data-uri=Rails.env.production? ? "ktuviot/websocket" : "#{request.host}:#{request.port}/websocket"
 
 script#slides-template type='text/x-handlebars-template'
   | {{#each slides}}

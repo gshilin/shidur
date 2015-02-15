@@ -13,4 +13,4 @@
         input#message.col-md-12 type="text"
         button#send.hidden.btn.btn-primary Send
 
-    #chat.well data-uri="#{request.host}:#{request.port}/websocket"
+    #chat.well data-uri=Rails.env.production? ? "ktuviot/websocket" : "#{request.host}:#{request.port}/websocket"
