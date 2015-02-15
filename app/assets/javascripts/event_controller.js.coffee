@@ -19,7 +19,6 @@ class Chat.Controller
     $(html)
 
   constructor: (url, useWebSockets) ->
-    @messageQueue = []
     unless url == undefined
       @dispatcher = new WebSocketRails(url, useWebSockets)
       @dispatcher.on_close = @disconnectClient
@@ -29,17 +28,12 @@ class Chat.Controller
     alert 'disconnect'
 
   bindEvents: =>
-    @dispatcher.bind 'new_message', @newMessage
+    @dispatcher.bind 'new_message', @appendMessage
     @dispatcher.bind 'got_new_question', @gotNewQuestion
     $('#send').on 'click', @sendMessage
     $('#message').keypress (e) -> $('#send').click() if e.keyCode == 13
     $('.show-question').on 'click', @showQuestion
     $('.switch-slides-question').on 'click', @switchSlidesQuestion
-
-  newMessage: (message) =>
-    @messageQueue.push message
-    @shiftMessageQueue() if @messageQueue.length > 10
-    @appendMessage message
 
   gotNewQuestion: (message) =>
     @appendMessage message
@@ -69,12 +63,7 @@ class Chat.Controller
     @dispatcher.trigger 'new_message', {user_name: 'נטב', msg_body: message}
     $message.val('')
 
-  appendMessage: (message) ->
+  appendMessage: (message) =>
     messageTemplate = @template(message)
-    $('#chat').append messageTemplate
+    $('#chat').prepend messageTemplate
     messageTemplate.slideDown 140
-
-  shiftMessageQueue: =>
-    @messageQueue.shift()
-    $('#chat .message:first').slideDown 100, ->
-      $(this).remove()
