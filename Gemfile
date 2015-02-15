@@ -27,7 +27,7 @@ group :development do
 end
 
 gem 'slim'
-gem 'puma'
+gem 'thin'
 
 gem 'jquery-ui-rails'
 gem 'autoprefixer-rails'
