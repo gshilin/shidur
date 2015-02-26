@@ -37,13 +37,13 @@ class Chat.Controller
     $question = $('#question_question')
     event.preventDefault()
     message = $question.val()
-    @dispatcher.trigger 'new_question', {user_name: 'שאלות', msg_body: message}
+    @dispatcher.trigger 'new_question', {user_name: 'עורך', msg_body: message}
 
   sendMessage: (event) =>
     $message = $('#message')
     event.preventDefault()
     message = $message.val()
-    @dispatcher.trigger 'new_message', {user_name: 'שאלות', msg_body: message}
+    @dispatcher.trigger 'new_message', {user_name: 'עורך', msg_body: message}
     $message.val('')
 
   appendMessage: (message) =>

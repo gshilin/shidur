@@ -60,7 +60,7 @@ class Chat.Controller
     $message = $('#message')
     event.preventDefault()
     message = $message.val()
-    @dispatcher.trigger 'new_message', {user_name: 'נטב', msg_body: message}
+    @dispatcher.trigger 'new_message', {user_name: 'נתב', msg_body: message}
     $message.val('')
 
   appendMessage: (message) =>

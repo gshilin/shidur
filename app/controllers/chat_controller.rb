@@ -24,7 +24,7 @@ class ChatController < WebsocketRails::BaseController
       Question.create(question: message[:msg_body].dup)
     end
     user_msg :got_new_question, '<span style="color: red; background: yellow; padding: 0 2px;">שאלה</span>'.html_safe, message[:msg_body].dup
-    system_msg :new_message, 'השעלה התקבלה'
+    system_msg :new_message, 'שאלה לסדנה​ התקבלה'
   end
 
   private

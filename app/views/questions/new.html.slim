@@ -1,13 +1,13 @@
 .container
   .row
     = simple_form_for @question do |f|
-      button#question.btn.btn-danger.btn-large.pull-left שלח שאלה
-      h3 שאלה
+      button#question.btn.btn-danger.btn-large.pull-left שלח שאלה לסדנה​
+      h3 שאלה לסדנה​
 
       = f.input :question, label: false, as: :text, input_html: { class: 'form-control', rows: 3 }
 
   .row
-    h3 Chat
+    h3 צ'ט
     .form-inline.well
       fieldset
         input#message.col-md-12 type="text"
