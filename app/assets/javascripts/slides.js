@@ -30,7 +30,9 @@ var RestoreState = {
         var author = $.cookie('current-slide-author');
         if (author === '') return;
         activateAuthor($('.sidebar-authors [href="' + author + '"]').parent());
-        activateBook($('.sidebar-books [href="' + $.cookie('current-slide-book') + '"]').parent());
+        var book = $.cookie('current-slide-book');
+        if (typeof book === 'undefined') return;
+        activateBook($('.sidebar-books [href="' + book + '"]').parent());
     },
 
     local: function () {
