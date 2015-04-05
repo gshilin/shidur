@@ -22,5 +22,11 @@ module ShidurSlides
 
     config.middleware.use Rack::Deflater
     config.middleware.delete Rack::Lock # for Faye Websockets
+
+    config.action_dispatch.default_headers = {
+        # 'X-Content-Type-Options' => 'nosniff',
+        # 'X-Frame-Options'        => 'SAMEORIGIN',
+        # 'X-XSS-Protection'       => '1; mode=block',
+    }
   end
 end
