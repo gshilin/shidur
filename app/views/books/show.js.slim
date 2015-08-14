@@ -1,7 +1,0 @@
-|
-  drawSlides(JSON.parse(#{@slides.to_json.html_safe}));
-  RestoreState.local();
-  $('.slides .draggable').draggable({
-    revert: true,
-    handle: 'span'
-  });

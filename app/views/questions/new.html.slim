@@ -10,7 +10,8 @@
     h3 צ'ט
     .form-inline.well
       fieldset
-        input#message.col-md-12 type="text"
-        button#send.hidden.btn.btn-primary Send
+        input#message.col-md-11 type="text"
+        .col-md-1
+          button#send.btn.btn-primary Send
 
-    #chat.well data-uri="#{Rails.env.production? ? "ktuviot.bbdomain.org/websocket" : "#{request.host}:#{request.port}/websocket"}" style="height: 200px; overflow: auto;"
+    #chat.well data-uri="#{Rails.env.production? ? 'ws://ktuviot.bbdomain.org:4000/ws' : "ws://#{request.host}:4000/ws"}" style="height: 200px; overflow: auto;"

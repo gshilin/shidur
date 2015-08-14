@@ -17,9 +17,12 @@
 @import "bootstrap";
 @import "bootstrap-rtl.min";
 
+$bg-color: rgb(243, 238, 238);
+
 body {
   direction: rtl;
   padding: 60px 20px 0;
+  background: $bg-color;
 }
 
 // SIDEBAR
@@ -50,7 +53,7 @@ body {
     height: $line-height-computed * 3.5;
     overflow: auto;
     padding: 0 $line-height-computed / 2;
-    background: white;
+    background: $bg-color;
     a {
       color: #555555;
     }
@@ -164,4 +167,8 @@ body {
 .really-slim {
   padding: 5px;
   margin: 0;
+}
+
+#message {
+  background: $bg-color;
 }

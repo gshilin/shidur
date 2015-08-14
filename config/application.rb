@@ -21,7 +21,6 @@ module ShidurSlides
     # config.i18n.default_locale = :de
 
     config.middleware.use Rack::Deflater
-    config.middleware.delete Rack::Lock # for Faye Websockets
 
     config.action_dispatch.default_headers = {
         # 'X-Content-Type-Options' => 'nosniff',

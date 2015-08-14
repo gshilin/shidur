@@ -1,19 +1,23 @@
-class ChatController < WebsocketRails::BaseController
+class ChatController < FayeRails::Controller
 
-  def initialize_session
-    # puts '### Session Initialized ###'
-  end
+  channel '/faye' do
+    monitor :subscribe do
+      system_msg :new_message, "#{client_id} מחובר"
+    end
+    monitor :unsubscribe do
+      system_msg :new_message, "#{client_id} מנותק"
+    end
+    monitor :publish do
+      system_msg :new_message, "#{client_id} published #{data.inspect} to #{channel}"
+    end
 
-  def client_connected
-    system_msg :new_message, 'מחובר'
+    subscribe do
+      puts "Received on #{channel} from #{client_id}: #{data.inspect}"
+    end
   end
 
   def new_message
     user_msg :new_message, message[:user_name], message[:msg_body].dup
-  end
-
-  def client_disconnected
-    system_msg :disconnect, "#{client_id} מנותק"
   end
 
   def new_question
@@ -30,19 +34,19 @@ class ChatController < WebsocketRails::BaseController
   private
 
   def system_msg(ev, msg)
-    broadcast_message ev, {
-                            user_name: 'מערכת',
-                            received:  Time.now.to_s(:short),
-                            msg_body:  msg
-                        }
+    publish ev, {
+                  user_name: 'מערכת',
+                  received:  Time.now.to_s(:short),
+                  msg_body:  msg
+              }
   end
 
   def user_msg(ev, user_name, msg)
-    broadcast_message ev, {
-                            user_name: user_name,
-                            received:  Time.now.to_s(:short),
-                            msg_body:  ERB::Util.html_escape(msg)
-                        }
+    publish ev, {
+                  user_name: user_name,
+                  received:  Time.now.to_s(:short),
+                  msg_body:  ERB::Util.html_escape(msg)
+              }
   end
 
 end

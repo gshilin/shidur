@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115083154) do
+ActiveRecord::Schema.define(version: 20150813143140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.string   "author"
+    t.string   "book"
+    t.integer  "page"
+    t.string   "letter"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "books", force: :cascade do |t|
     t.string   "author",     limit: 255
@@ -25,8 +35,12 @@ ActiveRecord::Schema.define(version: 20150115083154) do
     t.text     "slides"
   end
 
-  create_table "question", force: :cascade do |t|
-    t.string "question", default: ""
+  create_table "questions", force: :cascade do |t|
+    t.string   "question",    default: ""
+    t.string   "user"
+    t.boolean  "is_question", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "shares", force: :cascade do |t|

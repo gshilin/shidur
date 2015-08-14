@@ -11,8 +11,5 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery-ui
-//= require jquery_ujs
-//= require websocket_rails/main
 //= require event_controller_q
 //= require_self

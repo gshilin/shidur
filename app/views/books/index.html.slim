@@ -1,6 +1,3 @@
-javascript:
-  var books = #{@books.to_json.html_safe};
-
 .container-fluid
   .row
     .col-md-8.col-md-offset-4.slides
@@ -45,13 +42,4 @@ javascript:
                   input#message.col-md-11 type="text"
                   button#send.hidden.btn.btn-primary Send
 
-                #chat.well data-uri="#{Rails.env.production? ? "ktuviot.bbdomain.org/websocket" : "#{request.host}:#{request.port}/websocket"}"
-
-script#slides-template type='text/x-handlebars-template'
-  | {{#each slides}}
-  li.draggable data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}"
-    .wrap
-      .backdrop
-        span.handle.glyphicon.glyphicon-move
-        | {{{content}}}
-  | {{/each}}
+                #chat.well data-uri="#{Rails.env.production? ? 'ws://ktuviot.bbdomain.org:4000/ws' : "ws://#{request.host}:4000/ws"}"

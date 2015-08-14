@@ -1,69 +1,99 @@
 # Event Controller for Question Receiver
 
-jQuery ->
-  window.chatController = new Chat.Controller($('#chat').data('uri'), true)
+$ ->
+  window.chat = new Chat($('#chat').data('uri'))
 
-window.Chat = {}
-
-class Chat.Controller
-  template: (message) ->
+class window.Chat
+  template_message: (message) ->
     html =
     """
       <div class="message" >
-        <label class="label label-info" style="direction: ltr; font-weight: normal; color: black;">
+        <label class="label label-info"
+            style="direction: ltr; font-weight: normal; color: black;">
           [#{message.user_name}]
         </label>&nbsp;
-        #{message.msg_body}
+        #{message.message}
       </div>
-    """
+      """
     $(html)
 
-  constructor: (url, useWebSockets) ->
-    unless url == undefined
-      @dispatcher = new WebSocketRails(url, useWebSockets)
-      @dispatcher.on_close = @disconnectClient
-      @bindEvents()
+  template_question: (message) ->
+    html =
+    """
+      <div class="message" >
+        <label class="label label-danger"
+            style="direction: ltr; font-weight: normal; color: yellow;">
+          [#{message.user_name}]
+        </label>&nbsp;
+        #{message.message}
+      </div>
+      """
+    $(html)
+
+  dispatcher: null
+
+  constructor: (url) ->
+    @content = $('.sidebar-question .content')
+    @message = $('#message')
+
+    @dispatcher = new WebSocket(url)
+    @bindEvents()
+
+    @endAudio = new Audio('/music/ding.mp3');
+    @endAudio.setAttribute('preload', 'true');
 
   disconnectClient: =>
     alert 'disconnect'
 
   bindEvents: =>
-    @dispatcher.bind 'new_message', @appendMessage
-    @dispatcher.bind 'got_new_question', @gotNewQuestion
+    @dispatcher.onopen = ->
+      console?.log "Connected"
+    @dispatcher.onerror = ->
+      console?.log "Connection Error"
+    @dispatcher.onclose = ->
+      console?.log "Disconnected"
+
+    @dispatcher.onmessage = (payload) =>
+      @appendMessage payload
+
     $('#send').on 'click', @sendMessage
     $('#message').keypress (e) -> $('#send').click() if e.keyCode == 13
     $('.show-question').on 'click', @showQuestion
     $('.switch-slides-question').on 'click', @switchSlidesQuestion
 
-  gotNewQuestion: (message) =>
-    @appendMessage message
-    data = message.msg_body
-    $content = $('.sidebar-question .content')
-    old_data = $content.html()
-    if (data != old_data)
-      $('.show-question').removeClass('btn-default').addClass('btn-success');
-      $content.html(data);
-
   showQuestion: (event) =>
     content = $('.sidebar-question .content').html()
-    BigWindow.displayLiveQuestion(content)
+    big_window.displayLiveQuestion(content)
     $('.show-question').removeClass('btn-success').addClass('btn-default')
     false
 
   switchSlidesQuestion: (event) =>
     event.stopPropagation()
     event.stopImmediatePropagation()
-    BigWindow.switchSlidesQuestion()
+    big_window.switchSlidesQuestion()
     false
 
   sendMessage: (event) =>
-    $message = $('#message')
     event.preventDefault()
-    message = $message.val()
-    @dispatcher.trigger 'new_message', {user_name: 'נתב', msg_body: message}
-    $message.val('')
+    message = @message.val()
+    @dispatcher.send JSON.stringify {user_name: 'נתב', message: message, type: 'message'}
+    @message.val('')
 
-  appendMessage: (message) =>
-    messageTemplate = @template(message)
+  appendMessage: (payload) =>
+    message = JSON.parse payload.data
+    console?.log "Message: ", message
+    if message.type == 'question'
+      messageTemplate = @template_question(message)
+      @checkNewQuestion message
+    else
+      messageTemplate = @template_message(message)
     $('#chat').prepend messageTemplate
     messageTemplate.slideDown 140
+
+  checkNewQuestion: (message) =>
+    data = message.message
+    old_data = @content.html()
+    if (data != old_data)
+      @content.html(data)
+      $('.show-question').removeClass('btn-default').addClass('btn-success')
+      @endAudio.play()

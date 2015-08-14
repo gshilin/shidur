@@ -1,12 +1,7 @@
-jQuery ->
-  window.fileHandlerController = new FileHandler.Controller()
-
-window.FileHandler = {}
-
-class FileHandler.Controller
+class window.FileHandler
   dropZone = null
 
-  init: (id) =>
+  constructor: (id) ->
     # Setup the dnd listeners.
     @dropZone = $(id)
     if (@dropZone != null)
