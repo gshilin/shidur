@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//#= require bootstrap-sprockets
+//= require bootstrap-sprockets
 //= require handlebars-v2.0.0
 //= require jquery.cookie
 //= require file_handler
@@ -23,6 +23,7 @@
 //= require restore_state
 //= require big_window
 //= require event_controller
+//= require reconnecting-websocket
 
 Handlebars.registerHelper('calcSubletter', function () {
     var subletter = this.subletter;
@@ -32,9 +33,10 @@ Handlebars.registerHelper('calcSubletter', function () {
 window.template_manager = new TemplateManager();
 
 $(function () {
+    url = $('#chat').data('uri');
     window.restore_state = new RestoreState();
-    window.books = new Books();
-    window.bookmarks = new Bookmarks();
+    window.books = new Books(url);
+    window.bookmarks = new Bookmarks(url);
     window.big_window = new BigWindow();
     window.fileHandlerController = new FileHandler('#load_from_disk');
 

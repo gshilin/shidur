@@ -22,7 +22,7 @@ class window.BigWindow
     $(@bigWindow.document.body).find(".content").html(content)
 
   displayLiveQuestion: (content) =>
-    $(@bigWindow.document.body).find(".question ").html(content)
+    $(@bigWindow.document.body).find(".question").html(content)
 
   switchSlidesQuestion: =>
     question = $(@bigWindow.document.body).find(".question")[0]

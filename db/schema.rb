@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813143140) do
+ActiveRecord::Schema.define(version: 20150813143141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,20 @@ ActiveRecord::Schema.define(version: 20150813143140) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "slides"
+  end
+
+  create_table "gomigrate", force: :cascade do |t|
+    t.integer "migration_id", limit: 8, null: false
+  end
+
+  add_index "gomigrate", ["migration_id"], name: "gomigrate_migration_id_key", unique: true, using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "message",    default: ""
+    t.string   "user_name",  default: ""
+    t.string   "type",       default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "questions", force: :cascade do |t|

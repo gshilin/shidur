@@ -35,23 +35,50 @@ class window.Chat
     @message = $('#message')
     @question = $('#question_question')
 
-    @dispatcher = new WebSocket(url)
+    @localhost = "http://" + url
+    @wsURL = "ws://" + url + "/ws"
+    @connectWS()
+
     @bindEvents()
 
+  connectWS: =>
+    console?.log "Connecting...."
+    @dispatcher = new ReconnectingWebSocket(@wsURL, null, {reconnectInterval: 3000, reconnectDecay: 1})
+
   bindEvents: =>
-    @dispatcher.onopen = ->
+    @dispatcher.onopen = =>
       console?.log "Connected"
+      $('.led').removeClass('led-red').addClass('led-green')
+      @loadMessages()
     @dispatcher.onerror = ->
       console?.log "Connection Error"
+      $('.led').removeClass('led-green').addClass('led-red')
     @dispatcher.onclose = ->
       console?.log "Disconnected"
+      $('.led').removeClass('led-green').addClass('led-red')
 
     @dispatcher.onmessage = (payload) =>
-      @appendMessage payload
+      message = JSON.parse payload.data
+      console?.log "Message: ", message
+      @appendMessage message
 
     $('#question').on 'click', @sendQuestion
     $('#send').on 'click', @sendMessage
     $('#message').keypress (e) -> $('#send').click() if e.keyCode == 13
+
+  loadMessages: =>
+    $.ajax
+      url: @localhost + "/messages"
+      type: "GET"
+      dataType: "json"
+      success: (data, status, response) =>
+        console?.log(data)
+        for message in data.messages
+          @appendMessage message
+        lastQuestion = data.last_question
+        $('#question_question').html(lastQuestion.message) unless lastQuestion.ID == 0
+      error: (response, status, error) ->
+        console.log("List Messages:", status, "; Error:", error)
 
   sendQuestion: (event) =>
     event.preventDefault()
@@ -64,9 +91,7 @@ class window.Chat
     @dispatcher.send JSON.stringify {user_name: 'עורך', message: message, type: 'message'}
     @message.val('')
 
-  appendMessage: (payload) =>
-    message = JSON.parse payload.data
-    console?.log "Message: ", message
+  appendMessage: (message) =>
     if message.type == 'question'
       messageTemplate = @template_question(message)
     else

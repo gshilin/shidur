@@ -12,4 +12,5 @@
 //
 //= require jquery
 //= require event_controller_q
+//= require reconnecting-websocket
 //= require_self

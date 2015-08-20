@@ -1,9 +1,5 @@
 class BookmarksController < ApplicationController
 
-  def index
-    render json: {bookmarks: Bookmark.order(id: :asc).all}
-  end
-
   def create
     if Bookmark.new(bookmark_parameters).save
       render json: {message: 'Created'}, status: 200

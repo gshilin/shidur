@@ -1,5 +1,5 @@
 class window.Books
-  constructor: ->
+  constructor: (url) ->
     template = """
       {{#each slides}}
       <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}">
@@ -21,6 +21,7 @@ class window.Books
     """
     template_manager.load_template 'authors', template
 
+    @localhost = "http://" + url
     @books = new Array
     @loadAllBooks()
 
@@ -36,12 +37,12 @@ class window.Books
 
   loadAllBooks: =>
     $.ajax
-      url: "/books.json"
+      url: @localhost + "/books"
       type: "GET"
       dataType: "json"
       success: (data, status, response) =>
         @books = data
-        @drawAuthors(@books)
+        @drawAuthors()
         restore_state.remote()
       error: (response, status, error) ->
         console.log("List Bookmarks:", status, "; Error:", error);
@@ -55,11 +56,11 @@ class window.Books
 
   loadSlides: (book) =>
     $.ajax
-      url: book
+      url: @localhost + book
       type: "GET"
       dataType: "json"
       success: (data, status, response) =>
-        @drawSlides(data)
+        @drawSlides(JSON.parse(data))
         restore_state.local()
         $('.slides .draggable').draggable({
           revert: true,
@@ -72,8 +73,8 @@ class window.Books
     html = template_manager.transform 'slides', {slides: slides}
     $('.slides ul').html html
 
-  drawAuthors: (authors) =>
-    html = template_manager.transform 'authors', {authors: Object.keys(authors)}
+  drawAuthors: =>
+    html = template_manager.transform 'authors', {authors: Object.keys(@books).sort()}
     $('ul.list-unstyled.authors').html html
 
   gotoSlide: =>

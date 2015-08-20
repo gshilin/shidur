@@ -1,5 +1,5 @@
 class window.Bookmarks
-  constructor: ->
+  constructor: (url) ->
     template = """
       {{#each bookmarks}}
       <li>
@@ -12,6 +12,7 @@ class window.Bookmarks
     """
     template_manager.load_template 'bookmarks', template
 
+    @localhost = "http://" + url
     @bookmarks = null
     @getAllBookmarks()
 
@@ -43,7 +44,7 @@ class window.Bookmarks
 
   getAllBookmarks: =>
     $.ajax
-      url: "/bookmarks.json"
+      url: @localhost + "/bookmarks"
       type: "GET"
       dataType: "json"
       success: (data, status, response) =>

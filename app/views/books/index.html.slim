@@ -18,9 +18,6 @@
         .well.sidebar-authors
           h3 מחברים
           ul.list-unstyled.authors
-            - @books.keys.each do |author|
-              - unless author.blank?
-                li = link_to author, author
         .well.sidebar-books
           h3 ספרים
           ul.list-unstyled
@@ -29,17 +26,19 @@
           ul.list-unstyled
         .well.sidebar-question
           .pull-left
+            a.btn.btn-warning.clear-all clear
+            '
             a.btn.btn-danger.switch-slides-question switch
             '
             a.btn.btn-default.show-question show question
           h3 שאלה לסדנה​
-          .content style='border: 1px solid black;'
-            = @question
+          .content.question style='border: 1px solid black;'
           .container.really-slim
             .col-md-4.really-slim
               .form-inline.well.really-slim
                 fieldset
                   input#message.col-md-11 type="text"
                   button#send.hidden.btn.btn-primary Send
+                  .led.led-red
 
-                #chat.well data-uri="#{Rails.env.production? ? 'ws://ktuviot.bbdomain.org:4000/ws' : "ws://#{request.host}:4000/ws"}"
+                #chat.well data-uri="#{Rails.env.production? ? 'ktuviot.bbdomain.org:4000' : "#{request.host}:4000"}"

@@ -34,18 +34,6 @@ class Book < ActiveRecord::Base
     write_attribute :slides, slides.to_json if result
   end
 
-  def self.titles_per_author
-    Book.order(:title).pluck(:id, :author, :title).inject({}) do |all, book|
-      all[book[1]] ||= ''
-      all[book[1]] += "<li><a href='#{Rails.application.routes.url_helpers.book_path(book[0])}'>#{book[2]}</a></li>"
-      all
-    end
-  end
-
-  def self.slides(book_id)
-    Book.where(id: book_id).pluck(:slides).first
-  end
-
   def test_data_for_slides
     page      = 0
     letter    = 0
