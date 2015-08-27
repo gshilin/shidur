@@ -1,5 +1,46 @@
 class window.Books
   constructor: (url) ->
+
+    @localhost = "http://" + url
+    @books = new Array
+
+    template = """
+        {{#each slides}}
+        <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}">
+          <div class="wrap">
+            <div class="backdrop">
+              <span class="handle glyphicon glyphicon-move"/>
+              {{{content}}}
+            </div>
+          </div>
+        </li>
+        {{/each}}
+      """
+    template_manager.load_template 'slides', template
+
+    template = """
+        {{#each authors}}
+          <li><a href="{{this}}">{{this}}</a></li>
+        {{/each}}
+      """
+    template_manager.load_template 'authors', template
+
+    @loadAllBooks()
+    @setCallbacks()
+
+  setCallbacks: =>
+    $('.slides').on 'click', 'li', (event) =>
+      event.preventDefault()
+      @activateSlide event.target
+      false
+
+    $('.sidebar-navigation form').on 'submit', (event) =>
+      event.stopPropagation()
+      event.stopImmediatePropagation()
+      @gotoSlide()
+      false
+
+  loadTemplates: =>
     template = """
       {{#each slides}}
       <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}">
@@ -20,20 +61,6 @@ class window.Books
       {{/each}}
     """
     template_manager.load_template 'authors', template
-
-    @localhost = "http://" + url
-    @books = new Array
-    @loadAllBooks()
-
-    $('.slides').on 'click', 'li', (event) =>
-      event.preventDefault()
-      @activateSlide event.target
-      false
-
-    $('.sidebar-navigation form').on 'submit', (event) =>
-      event.stopPropagation()
-      event.stopImmediatePropagation()
-      @gotoSlide()
 
   loadAllBooks: =>
     $.ajax
