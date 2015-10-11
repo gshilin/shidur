@@ -2,9 +2,11 @@
   .row
     = simple_form_for Question.new do |f|
       button#question.btn.btn-danger.btn-large.pull-left שלח שאלה לסדנה​
+      a.btn.btn-default.btn-large.pull-left href="#" style="margin-left: 10px;" onclick="$('#question_question').val(''); return false;" נקה שאלה
       h3 שאלה לסדנה​
 
-      = f.input :question, label: false, as: :text, input_html: { class: 'form-control', rows: 3 }
+      = f.input :question, label: false, as: :text, input_html: { class: 'form-control',
+        style: 'margin-top: 0px; margin-bottom: 0px; height: 248px; font-size: 46px; width: 1283px; line-height: 50px; padding: 23px 51px;' }
 
   .row
     h3
