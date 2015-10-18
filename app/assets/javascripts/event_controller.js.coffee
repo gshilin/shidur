@@ -38,6 +38,8 @@ class window.Chat
 
     @localhost = "http://" + url
     @wsURL = "ws://" + url + "/ws"
+    return if @localhost == "http://undefined"
+
     @connectWS()
 
     @bindEvents()
@@ -87,6 +89,8 @@ class window.Chat
         console.log("Delete messages:", status, "; Error:", error)
 
   loadMessages: =>
+    return if @localhost == "http://undefined"
+
     $.ajax
       url: @localhost + "/messages"
       type: "GET"

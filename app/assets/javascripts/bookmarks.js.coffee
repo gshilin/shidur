@@ -43,6 +43,8 @@ class window.Bookmarks
         console.log("Add Bookmark:", status, "; Error:", error);
 
   getAllBookmarks: =>
+    return if @localhost == "http://undefined"
+
     $.ajax
       url: @localhost + "/bookmarks"
       type: "GET"

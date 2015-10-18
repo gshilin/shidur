@@ -63,6 +63,8 @@ class window.Books
     template_manager.load_template 'authors', template
 
   loadAllBooks: =>
+    return if @localhost == "http://undefined"
+
     $.ajax
       url: @localhost + "/books"
       type: "GET"
