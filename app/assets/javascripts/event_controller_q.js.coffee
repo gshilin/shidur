@@ -1,8 +1,17 @@
 # Event Controller for Question Author
 $ ->
   window.chat = new Chat($('#chat').data('uri'))
+  # adapt "question" window to screen size
+  window.chat.adapt()
 
 class window.Chat
+  adapt: () ->
+    screen_width = $('#chat').width()
+    $field = $('#question_question')
+    ratio = screen_width / $field.width()
+    #console.log("ratio", ratio)
+    $field.css({transform: 'scale(' + ratio + ')', 'transform-origin': 'top right'})
+
   template_message: (message) ->
     html =
     """
