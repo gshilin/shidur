@@ -130,8 +130,10 @@ body {
   }
 }
 
-#load_from_disk {
+#load_temp_file, #load_from_disk {
   width: 20%;
+  float: right;
+  margin-left: 10px;
   &.over {
     border: 2px dashed #000;
   }

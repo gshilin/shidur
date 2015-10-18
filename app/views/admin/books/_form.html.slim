@@ -8,7 +8,10 @@
         - @book.errors.full_messages.each do |msg|
           li = msg
   .form-group
+    .test_window style="width: 1280px; padding: 0.2em 1.5em 0 1.1em; text-shadow: 0 0 1px rgba(0, 0, 0, 0.5); font-family: Arial, sans-serif; font-size: 43px; line-height: 46px; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);"
     #load_from_disk.well.well-lg זרוק קובץ כאן
+    #load_temp_file.well.well-lg זרוק קובץ לא מפורמט כאן
+    .clearfix
     br
     = button_tag 'שמור ספר', class: 'btn btn-primary btn-large', disable_with: 'אנא המתן...'
     | &nbsp;
