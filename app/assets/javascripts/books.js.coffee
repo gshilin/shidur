@@ -6,7 +6,7 @@ class window.Books
 
     template = """
         {{#each slides}}
-        <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}">
+        <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}" data-book_name="{{ ../book_name }}">
           <div class="wrap">
             <div class="backdrop">
               <span class="handle glyphicon glyphicon-move"/>
@@ -43,7 +43,7 @@ class window.Books
   loadTemplates: =>
     template = """
       {{#each slides}}
-      <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}">
+      <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}" data-book_name="{{ ../book_name }}>
         <div class="wrap">
           <div class="backdrop">
             <span class="handle glyphicon glyphicon-move"/>
@@ -89,7 +89,9 @@ class window.Books
       type: "GET"
       dataType: "json"
       success: (data, status, response) =>
-        @drawSlides(JSON.parse(data))
+        book_name = Object.keys(data)[0]
+        data = JSON.parse(data[book_name])
+        @drawSlides(book_name, data)
         restore_state.local()
         $('.slides .draggable').draggable({
           revert: true,
@@ -98,8 +100,8 @@ class window.Books
       error: (response, status, error) ->
         console.log("Load Book:", status, "; Error:", error)
 
-  drawSlides: (slides) =>
-    html = template_manager.transform 'slides', {slides: slides}
+  drawSlides: (book_name, slides) =>
+    html = template_manager.transform 'slides', {book_name: book_name, slides: slides}
     $('.slides ul').html html
 
   drawAuthors: =>

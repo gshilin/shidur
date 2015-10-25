@@ -25,7 +25,7 @@ class window.Bookmarks
         book = $.cookie 'current-slide-book'
         page = ui.draggable.data 'page'
         letter = ui.draggable.data 'letter'
-        book_name = books.books[author]['book_name']
+        book_name = ui.draggable.data 'book_name'
         @addBookmark author, book, page, letter, book_name
 
   addBookmark: (author, book, page, letter, book_name) =>
