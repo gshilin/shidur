@@ -19,6 +19,6 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_parameters
-    params.permit(:author, :book, :page, :letter)
+    params.permit(:author, :book, :page, :letter, :book_name)
   end
 end

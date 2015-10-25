@@ -3,7 +3,7 @@ class window.Bookmarks
     template = """
       {{#each bookmarks}}
       <li>
-        <a href="#" onclick="bookmarks.gotoBookmark({{id}}); return false"> {{author}} / דף {{page}} -- אות {{letter}}
+        <a href="#" onclick="bookmarks.gotoBookmark({{id}}); return false"> {{author}}/{{book_name}}/דף {{page}}/אות {{letter}}
           &nbsp;
           <a href="#" onclick="bookmarks.deleteBookmark({{id}})">[מחק]</a>
         </a>
@@ -25,9 +25,10 @@ class window.Bookmarks
         book = $.cookie 'current-slide-book'
         page = ui.draggable.data 'page'
         letter = ui.draggable.data 'letter'
-        @addBookmark author, book, page, letter
+        book_name = books.books[author]['book_name']
+        @addBookmark author, book, page, letter, book_name
 
-  addBookmark: (author, book, page, letter) =>
+  addBookmark: (author, book, page, letter, book_name) =>
     $.ajax
       url: "/bookmarks.json"
       type: "POST"
@@ -37,6 +38,7 @@ class window.Bookmarks
         book: book
         page: page
         letter: letter
+        book_name: book_name
       success: (data, status, response) =>
         @getAllBookmarks()
       error: (response, status, error) ->

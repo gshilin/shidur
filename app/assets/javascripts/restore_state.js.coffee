@@ -36,7 +36,7 @@ class window.RestoreState
 
     $.cookie('current-slide-author', author, {expires: 7, path: '/'})
 
-    titles = books.books[author]
+    titles = books.books[author]['links']
     $('.slides ul').empty()
     $('.sidebar-books ul').html(titles)
 
