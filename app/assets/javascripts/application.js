@@ -28,6 +28,8 @@
 //= require mammoth.browser
 
 Handlebars.registerHelper('calcSubletter', function () {
+    "use strict";
+
     var subletter = this.subletter;
     return subletter === 1 ? "" : ("-" + subletter);
 });
@@ -35,13 +37,14 @@ Handlebars.registerHelper('calcSubletter', function () {
 window.template_manager = new TemplateManager();
 
 $(function () {
-    url = $('#chat').data('uri');
+    "use strict";
+    var url = window.location.hostname + ":4000";
     window.restore_state = new RestoreState();
     window.books = new Books(url);
     window.bookmarks = new Bookmarks(url);
     window.big_window = new BigWindow();
-    new FileHandler('#load_from_disk');
-    new Unformatted('#load_temp_file');
+    window.file_handler = new FileHandler('#load_from_disk');
+    window.unformatted = new Unformatted('#load_temp_file');
 
     $('.navbar-header').on('click', '.navbar-brand', function (evt) {
         evt.stopPropagation();
@@ -57,7 +60,7 @@ $(function () {
 
         var form = $(this).closest('form');
         form.attr('action', '/admin/books/validate');
-        form.find("input[name='_method']").attr('value', 'post')
+        form.find("input[name='_method']").attr('value', 'post');
     });
 });
 

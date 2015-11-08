@@ -1,6 +1,6 @@
 # Event Controller for Question Author
 $ ->
-  window.chat = new Chat($('#chat').data('uri'))
+  window.chat = new Chat
   # adapt "question" window to screen size
   window.chat.adapt()
 
@@ -40,7 +40,9 @@ class window.Chat
 
   dispatcher: null
 
-  constructor: (url) ->
+  constructor: () ->
+    url = window.location.hostname + ":4000"
+
     @message = $('#message')
     @question = $('#question_question')
 

@@ -1,7 +1,7 @@
 # Event Controller for Question Receiver
 
 $ ->
-  window.chat = new Chat($('#chat').data('uri'))
+  window.chat = new Chat
 
 class window.Chat
   template_message: (message) ->
@@ -32,7 +32,9 @@ class window.Chat
 
   dispatcher: null
 
-  constructor: (url) ->
+  constructor: () ->
+    url = window.location.hostname + ":4000"
+
     @content = $('.sidebar-question .content')
     @message = $('#message')
 
