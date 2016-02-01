@@ -1,3 +1,14 @@
+nav.navbar.navbar-fixed-top.navbar-default role='navigation'
+  .container-fluid
+    ul.nav.navbar-nav.navbar-right
+      li
+        a href=admin_books_path Admin
+      li
+        a href=root_path שקופיות
+      li
+        a href=new_question_path target='_blank' שאלה לסדנה​
+      li
+        a href=questions_path target='_blank' כל שאלות מהיום
 header.subhead
   h2.pull-right ספרים
   = link_to 'ספר חדש', new_admin_book_path, class: 'btn btn-success btn-large pull-left'

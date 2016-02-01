@@ -1,6 +1,5 @@
 class window.Books
   constructor: (url) ->
-
     @localhost = "http://" + url
     @books = new Array
 
@@ -34,11 +33,24 @@ class window.Books
       @activateSlide event.target
       false
 
-    $('.sidebar-navigation form').on 'submit', (event) =>
+    $('#locate-page, #locate-slide').on 'submit', (event) =>
       event.stopPropagation()
       event.stopImmediatePropagation()
       @gotoSlide()
       false
+
+    # jump to h3
+    $('.sidebar-h3').on 'click', 'a', (event) =>
+      event.preventDefault()
+      target = $(event.target)
+      page = target.data('page')
+      letter = target.data('letter')
+      @gotoSlide(page, letter)
+      $('.sidebar-h3').click()
+      $('.sidebar-s3 li').removeClass('active')
+      target.closest('li').addClass('active')
+
+    false
 
   loadTemplates: =>
     template = """
@@ -92,6 +104,7 @@ class window.Books
         book_name = Object.keys(data)[0]
         data = JSON.parse(data[book_name])
         @drawSlides(book_name, data)
+        @drawLinks(data)
         restore_state.local()
         $('.slides .draggable').draggable({
           revert: true,
@@ -106,11 +119,20 @@ class window.Books
 
   drawAuthors: =>
     html = template_manager.transform 'authors', {authors: Object.keys(@books).sort()}
-    $('ul.list-unstyled.authors').html html
+    $('ul.sidebar-authors').html html
 
-  gotoSlide: =>
-    page = $('#locate-page').find('input').val()
-    letter = $('#locate-slide').find('input').val()
+  drawLinks: (slides) =>
+    html = ''
+    for {page, letter, subletter, content} in slides
+      if content.match /h3/
+        l = letter
+        l += '-' + subletter if subletter != '1'
+        html += content.replace /<h3>(.+)<\/h3>/, "<li><a href='#' data-page='" + page + "' data-letter='" + l + "'>$1</a></li>"
+    $('ul.sidebar-h3').html html
+
+  gotoSlide: (page, letter) =>
+    page ?= $('#locate-page').find('input').val()
+    letter ?= $('#locate-slide').find('input').val()
 
     if (page == undefined || page == '')
       if (letter != undefined && letter != '')

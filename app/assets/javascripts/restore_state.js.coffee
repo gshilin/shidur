@@ -4,12 +4,14 @@ class window.RestoreState
       event.preventDefault()
       author = $(event.target).text()
       @activateAuthor event.target, author
+      $('.sidebar-authors').click()
       false
 
     $('.sidebar-books').on 'click', 'li', (event) =>
       event.preventDefault()
       book = $(event.target).attr('href')
       @activateBook event.target, book
+      $('.sidebar-books').click()
       false
 
   remote: =>

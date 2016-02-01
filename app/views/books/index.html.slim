@@ -1,3 +1,54 @@
+nav.navbar.navbar-fixed-top.navbar-default role='navigation'
+  .container-fluid
+    ul.nav.navbar-nav.navbar-right
+      li
+        a href=root_path שקופיות
+      li.dropdown
+        a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+          ' ניהול
+          span.caret
+            ul.dropdown-menu.dropdown-menu-right
+              li
+                a href=admin_books_path ניהול ספרים
+              li
+                a.clear-all href="#" נקה כל ההודעות
+      li.dropdown
+        a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+          ' שאלות
+          span.caret
+        ul.dropdown-menu.dropdown-menu-right
+          li
+            a href=new_question_path target='_blank' שאלה לסדנה​
+          li
+            a href=questions_path target='_blank' כל שאלות מהיום
+      li.dropdown
+        a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+          ' מחברים
+          span.caret
+        ul.dropdown-menu.dropdown-menu-right.sidebar-authors
+      li.dropdown.sidebar-books
+        a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+          ' ספרים
+          span.caret
+        ul.dropdown-menu.dropdown-menu-right
+      li.dropdown
+        a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+          ' כותרות
+          span.caret
+        ul.dropdown-menu.dropdown-menu-right.sidebar-h3
+
+    ul.nav.navbar-nav.navbar-left
+      .navbar-header
+        a.navbar-brand href="#" דף ... שקף ...
+      li style="padding-top: 5px;"
+        .col-md-6
+          form#locate-page
+            label.control-label.sr-only מספר דף:
+            input.form-control placeholder="מספר דף"
+        .col-md-6
+          form#locate-slide
+            label.control-label.sr-only מספר שקף:
+            input.form-control placeholder="מספר שקף"
 .container-fluid
   .row
     .col-md-8.col-md-offset-4.slides
@@ -5,29 +56,12 @@
   .row
     .col-md-4.sidebar
       .sidebar-container
-        .well.sidebar-navigation
-          .row
-            .col-md-6
-              form#locate-page
-                label.control-label.sr-only מספר דף:
-                input.form-control placeholder="מספר דף"
-            .col-md-6
-              form#locate-slide
-                label.control-label.sr-only מספר שקף:
-                input.form-control placeholder="מספר שקף"
-        .well.sidebar-authors
-          h3 מחברים
-          ul.list-unstyled.authors
-        .well.sidebar-books
-          h3 ספרים
-          ul.list-unstyled
         .well.sidebar-bookmarks
           h3 סמניות
           ul.list-unstyled
+          .clear
         .well.sidebar-question
           .pull-left
-            a.btn.btn-warning.clear-all clear
-            '
             a.btn.btn-danger.switch-slides-question switch
             '
             a.btn.btn-default.show-question show question
@@ -42,3 +76,4 @@
                   .led.led-red
 
                 #chat.well
+.clear

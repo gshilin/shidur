@@ -9,19 +9,6 @@ html lang="he"
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   body
-    nav.navbar.navbar-fixed-top.navbar-default role='navigation'
-      .container-fluid
-        .navbar-header
-          a class="navbar-brand" href="#"
-        ui.nav.navbar-nav.navbar-right
-          li
-            a href=admin_books_path Admin
-          li
-            a href=root_path שקופיות
-          li
-            a href=new_question_path target='_blank' שאלה לסדנה​
-          li
-            a href=questions_path target='_blank' כל שאלות מהיום
     = yield
 
     = javascript_include_tag 'application'
