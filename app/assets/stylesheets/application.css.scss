@@ -44,7 +44,10 @@ body {
 }
 
 .sidebar-bookmarks {
-  flex: 1 0 auto;
+  height: 220px;
+  ul.ui-droppable {
+    height: $line-height-computed * 8;
+  }
 }
 
 .sidebar-question {
@@ -58,7 +61,6 @@ body {
     margin-top: 0;
   }
   ul {
-    height: $line-height-computed * 8;
     overflow: auto;
     padding: 0 $line-height-computed / 2;
     background: $bg-color;
