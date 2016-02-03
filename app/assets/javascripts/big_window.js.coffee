@@ -30,3 +30,5 @@ class window.BigWindow
     @show_slide = !@show_slide;
     slide.style.display = if this.show_slide then 'block' else 'none'
     question.style.display = if this.show_slide then 'none' else 'block'
+    if this.show_slide then title = 'לשאלות' else title = 'לשקופיות'
+    $('.switch-slides-question').html(title)

@@ -38,8 +38,6 @@ nav.navbar.navbar-fixed-top.navbar-default role='navigation'
         ul.dropdown-menu.dropdown-menu-right.sidebar-h3
 
     ul.nav.navbar-nav.navbar-left
-      .navbar-header
-        a.navbar-brand href="#" דף ... שקף ...
       li style="padding-top: 5px;"
         .col-md-6
           form#locate-page
@@ -49,6 +47,10 @@ nav.navbar.navbar-fixed-top.navbar-default role='navigation'
           form#locate-slide
             label.control-label.sr-only מספר שקף:
             input.form-control placeholder="מספר שקף"
+      li
+        a.navbar-brand href="#" דף ... שקף ...
+      li
+        a.btn.btn-danger.switch-slides-question לשאלות
 .container-fluid
   .row
     .col-md-8.col-md-offset-4.slides
@@ -62,8 +64,6 @@ nav.navbar.navbar-fixed-top.navbar-default role='navigation'
           .clear
         .well.sidebar-question
           .pull-left
-            a.btn.btn-danger.switch-slides-question switch
-            '
             a.btn.btn-default.show-question show question
           h3 שאלה לסדנה​
           .content.question style='border: 1px solid black;'
