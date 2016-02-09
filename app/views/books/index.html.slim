@@ -21,6 +21,8 @@ nav.navbar.navbar-fixed-top.navbar-default role='navigation'
             a href=new_question_path target='_blank' שאלה לסדנה​
           li
             a href=questions_path target='_blank' כל שאלות מהיום
+          li
+            a href=three_languages_path target='_blank' שאלות בשלוש שפות
       li.dropdown
         a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
           ' מחברים
@@ -57,12 +59,12 @@ nav.navbar.navbar-fixed-top.navbar-default role='navigation'
       ul.list-unstyled
   .row
     .col-md-4.sidebar
-      .sidebar-container
-        .well.sidebar-bookmarks
+      .grid
+        .col-11.well.sidebar-bookmarks
           h3 סמניות
           ul.list-unstyled
           .clear
-        .well.sidebar-question
+        .col-11.well.sidebar-question
           h3 שאלה לסדנה​
           .q
             a.btn.btn-default.question-btn.show-question עברית
@@ -73,13 +75,12 @@ nav.navbar.navbar-fixed-top.navbar-default role='navigation'
           .q
             a.btn.btn-default.question-btn.show-question-ru Русский
             .content-ru.question style='border: 1px solid black;'
-          .container.really-slim
-            .col-md-4.really-slim
-              .form-inline.well.really-slim
-                fieldset
-                  input#message.col-md-11 type="text"
-                  button#send.hidden.btn.btn-primary Send
-                  .led.led-red
+        .col-11.well.sidebar-chat
+          .col-11.well.grid
+            input#message.col-11 type="text"
+            .col-1
+              .led.led-red
+            button#send.hidden.btn.btn-primary Send
 
-                #chat.well
+            #chat.well
 .clear

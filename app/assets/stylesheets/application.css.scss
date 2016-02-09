@@ -34,48 +34,15 @@ body {
   bottom: 20px;
 }
 
-.sidebar-container {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: stretch;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: $grid-gutter-width / 2;
-  left: $grid-gutter-width;
-}
-
 .sidebar-bookmarks {
-  height: 220px;
-  ul.ui-droppable {
-    height: $line-height-computed * 8;
-  }
+  overflow: auto;
+  height: 18vh;
+  max-height: 18vh;
 }
 
 .sidebar-question {
   flex: 2 0 auto;
   margin-bottom: 0;
-}
-
-.sidebar-bookmarks, .sidebar-question {
-  margin-bottom: 10px;
-  padding: 10px 19px;
-  h3 {
-    margin-top: 0;
-  }
-  ul {
-    overflow: auto;
-    padding: 0 $line-height-computed / 2;
-    background: $bg-color;
-    a {
-      color: #555555;
-    }
-  }
-  li.active a {
-    color: red;
-    background: beige;
-    display: block;
-  }
 }
 
 .sidebar-h3 {
@@ -163,8 +130,8 @@ body {
 }
 
 #chat {
-  height: 70px;
   overflow: auto;
+  height: 30vh;
 }
 
 .really-slim {
@@ -177,10 +144,10 @@ body {
 }
 
 .led {
-  width: 12px;
-  height: 12px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  float: left;
+  margin: auto;
   &.led-red {
     background-color: #F00;
     box-shadow: #000 0 -1px 7px 1px, inset #600 0 -1px 9px, #F00 0 2px 12px;
@@ -220,4 +187,12 @@ body {
 .question {
   height: 70px;
   font-size: 12px;
+}
+
+.well {
+  margin-bottom: 5px;
+}
+
+.grid {
+  align-items: stretch;
 }

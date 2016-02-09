@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :bookmarks, only: [ :index, :create, :destroy ]
 
   resources :big_windows, only: [:index]
+  resources :three_languages, only: [:index]
 
   namespace :admin do
     resources :books do
