@@ -16,6 +16,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-rtl.min";
+@import "bootstrap-select.min";
+@import "gridlex.min";
 
 $bg-color: rgb(243, 238, 238);
 
@@ -52,6 +54,7 @@ body {
 
 .sidebar-question {
   flex: 2 0 auto;
+  margin-bottom: 0;
 }
 
 .sidebar-bookmarks, .sidebar-question {
@@ -79,10 +82,6 @@ body {
   height: auto;
   max-height: 750px;
   overflow-x: hidden;
-}
-
-.sidebar-question {
-  margin-bottom: 0;
 }
 
 .wrap {
@@ -207,4 +206,18 @@ body {
 
 .clear {
   clear: both;
+}
+
+.question-btn {
+  float: left;
+  transform: rotate(-90deg) translate(-56px, -10px);
+  transform-origin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 12px;
+}
+
+.question {
+  height: 70px;
+  font-size: 12px;
 }

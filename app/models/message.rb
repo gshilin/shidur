@@ -8,8 +8,8 @@
 #  type       :string           default("")
 #  created_at :datetime
 #  updated_at :datetime
+#  language   :string           default("he")
 #
 
 class Message < ActiveRecord::Base
-  Message.inheritance_column = nil
 end

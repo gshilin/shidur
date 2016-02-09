@@ -16,11 +16,8 @@ class window.Chat
     html =
     """
       <div class="message" >
-        <label class="label label-info"
-            style="direction: ltr; font-weight: normal; color: black;">
-          [#{message.user_name}]
-        </label>&nbsp;
-        #{message.message}
+        <label class="label label-info" style="direction: ltr; font-weight: normal; color: black; padding-left: 5px;">[#{message.user_name}]</label>
+        <div style="display: inline-block;">#{message.message}</label>
       </div>
       """
     $(html)
@@ -29,11 +26,8 @@ class window.Chat
     html =
     """
       <div class="message" >
-        <label class="label label-danger"
-            style="direction: ltr; font-weight: normal; color: yellow;">
-          [#{message.user_name}]
-        </label>&nbsp;
-        #{message.message}
+        <label class="label label-danger" style="direction: ltr; font-weight: normal; color: yellow; padding-left: 5px;">[#{message.user_name}]</label>
+        <div style="display: inline-block;">#{message.message}</label>
       </div>
       """
     $(html)
@@ -94,12 +88,24 @@ class window.Chat
   sendQuestion: (event) =>
     event.preventDefault()
     message = @question.val()
-    @dispatcher.send JSON.stringify {user_name: 'עורך', message: message, type: 'question'}
+    language = $('select.selectpicker').val()
+    @dispatcher.send JSON.stringify {
+      user_name: @userName(language),
+      message: message,
+      type: 'question',
+      language: language
+    }
 
   sendMessage: (event) =>
     event.preventDefault()
     message = @message.val()
-    @dispatcher.send JSON.stringify {user_name: 'עורך', message: message, type: 'message'}
+    language = $('select.selectpicker').val()
+    @dispatcher.send JSON.stringify {
+      user_name: @userName(language),
+      message: message,
+      type: 'message',
+      language: language
+    }
     @message.val('')
 
   appendMessage: (message) =>
@@ -109,3 +115,9 @@ class window.Chat
       messageTemplate = @template_message(message)
     $('#chat').prepend messageTemplate
     messageTemplate.slideDown 140
+
+  userName: (language) ->
+    return switch language
+      when 'he' then 'עורך'
+      when 'en' then 'editor'
+      when 'ru' then 'редактор'

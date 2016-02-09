@@ -13,4 +13,6 @@
 //= require jquery
 //= require event_controller_q
 //= require reconnecting-websocket
+//= require bootstrap.min
+//= require bootstrap-select.min
 //= require_self

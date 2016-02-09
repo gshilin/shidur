@@ -1,8 +1,13 @@
 .container
   .row
     = simple_form_for Question.new do |f|
-      button#question.btn.btn-danger.btn-large.pull-left שלח שאלה לסדנה​
-      a.btn.btn-default.btn-large.pull-left href="#" style="margin-left: 10px;" onclick="$('#question_question').val(''); return false;" נקה שאלה
+      .form-group
+        button#question.btn.btn-danger.btn-large.pull-left שלח שאלה לסדנה​
+        a.btn.btn-default.btn-large.pull-left href="#" style="margin: auto 10px;" onclick="$('#question_question').val(''); return false;" נקה שאלה
+        select.selectpicker.show-menu-arrow.form-control.pull-left data-width="fit"
+          option value="he" Hebrew
+          option value="en" English
+          option value="ru" Russian
       h3 שאלה לסדנה​
 
       = f.input :question, label: false, as: :text, input_html: { class: 'form-control',

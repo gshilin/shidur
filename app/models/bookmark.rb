@@ -10,6 +10,7 @@
 #  position   :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  book_name  :string
 #
 
 class Bookmark < ActiveRecord::Base

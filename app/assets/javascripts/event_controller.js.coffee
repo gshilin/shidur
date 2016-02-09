@@ -36,6 +36,8 @@ class window.Chat
     url = window.location.hostname + ":4000"
 
     @content = $('.sidebar-question .content')
+    @content_en = $('.sidebar-question .content-en')
+    @content_ru = $('.sidebar-question .content-ru')
     @message = $('#message')
 
     @localhost = "http://" + url
@@ -74,6 +76,8 @@ class window.Chat
     $('#send').on 'click', @sendMessage
     $('#message').keypress (e) -> $('#send').click() if e.keyCode == 13
     $('.show-question').on 'click', @showQuestion
+    $('.show-question-en').on 'click', @showQuestionEn
+    $('.show-question-ru').on 'click', @showQuestionRu
     $('.switch-slides-question').on 'click', @switchSlidesQuestion
     $('.clear-all').on 'click', @clearQuestions
 
@@ -85,7 +89,7 @@ class window.Chat
       data:
         _method: 'delete'
       success: =>
-        $('.sidebar-question .content').html("")
+        $('.sidebar-question .question').html("")
         $('#chat').html("")
       error: (response, status, error) ->
         console.log("Delete messages:", status, "; Error:", error)
@@ -110,6 +114,18 @@ class window.Chat
     content = $('.sidebar-question .content').html()
     big_window.displayLiveQuestion(content)
     $('.show-question').removeClass('btn-success').addClass('btn-default')
+    false
+
+  showQuestionEn: (event) =>
+    content = $('.sidebar-question .content-en').html()
+#    big_window.displayLiveQuestion(content)
+    $('.show-question-en').removeClass('btn-success').addClass('btn-default')
+    false
+
+  showQuestionRu: (event) =>
+    content = $('.sidebar-question .content-ru').html()
+    #    big_window.displayLiveQuestion(content)
+    $('.show-question-ru').removeClass('btn-success').addClass('btn-default')
     false
 
   switchSlidesQuestion: (event) =>
