@@ -124,7 +124,7 @@ class window.Chat
   showQuestion: (event) =>
     lang = event.data.lang
     content = $('.sidebar-question .content-' + lang).html()
-    big_window.displayLiveQuestion(content)
+    big_window.displayLiveQuestion(content) if lang == 'he'
     $('.show-question-' + lang).removeClass('btn-success').addClass('btn-default')
     $.ajax
       url: @localhost + "/questions/approve/" + lang

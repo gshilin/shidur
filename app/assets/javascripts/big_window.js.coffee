@@ -1,5 +1,6 @@
 class window.BigWindow
-  bigWindow: window.open('/big_windows', 'Big Window', 'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no')
+  bigWindow: window.open('/big_windows', 'BigWindow',
+    'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no')
 
   show_slide: true
 
