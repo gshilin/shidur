@@ -2,13 +2,19 @@ doctype html
 html lang="he"
   head
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
-    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta http-equiv="X-UA-Compatible" content="X-UA-Compatible"
     meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-    title ShidurSlides
+    title Three Languages' Questions
 
-    = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_link_tag 'three', media: 'all'
     = csrf_meta_tags
   body
-    = yield
+    .wrapper
+      .languages
+        = yield
 
-    = javascript_include_tag 'application'
+    = javascript_include_tag 'three'
+
+
+
+

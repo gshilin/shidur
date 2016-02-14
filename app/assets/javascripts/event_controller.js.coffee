@@ -7,9 +7,8 @@ class window.Chat
   template_message: (message) ->
     html =
     """
-      <div class="message" >
-        <label class="label label-info"
-            style="direction: ltr; font-weight: normal; color: black;">
+      <div class="message message-#{message.language}">
+        <label class="label label-info" style="font-weight: normal; color: black;">
           [#{message.user_name}]
         </label>&nbsp;
         #{message.message}
@@ -20,9 +19,8 @@ class window.Chat
   template_question: (message) ->
     html =
     """
-      <div class="message" >
-        <label class="label label-danger"
-            style="direction: ltr; font-weight: normal; color: yellow;">
+      <div class="message message-#{message.language}">
+        <label class="label label-danger" style="font-weight: normal; color: yellow;">
           [#{message.user_name}]
         </label>&nbsp;
         #{message.message}
@@ -35,9 +33,6 @@ class window.Chat
   constructor: () ->
     url = window.location.hostname + ":4000"
 
-    @content = $('.sidebar-question .content')
-    @content_en = $('.sidebar-question .content-en')
-    @content_ru = $('.sidebar-question .content-ru')
     @message = $('#message')
 
     @localhost = "http://" + url
@@ -62,6 +57,7 @@ class window.Chat
     @dispatcher.onopen = =>
       console?.log "Connected"
       $('.led').removeClass('led-red').addClass('led-green')
+      $('#chat').html ""
       @loadMessages()
     @dispatcher.onerror = ->
       console?.log "Connection Error"
@@ -75,13 +71,27 @@ class window.Chat
 
     $('#send').on 'click', @sendMessage
     $('#message').keypress (e) -> $('#send').click() if e.keyCode == 13
-    $('.show-question').on 'click', @showQuestion
-    $('.show-question-en').on 'click', @showQuestionEn
-    $('.show-question-ru').on 'click', @showQuestionRu
+    $('.show-question-he').on 'click', {lang: 'he'}, @showQuestion
+    $('.show-question-en').on 'click', {lang: 'en'}, @showQuestion
+    $('.show-question-ru').on 'click', {lang: 'ru'}, @showQuestion
     $('.switch-slides-question').on 'click', @switchSlidesQuestion
-    $('.clear-all').on 'click', @clearQuestions
+    $('.clear-all').on 'click', @clearChat
+    $('.clear-button').on 'click', @clearQuestions
 
   clearQuestions: =>
+    $.ajax
+      url: @localhost + "/questions"
+      type: "post"
+      dataType: "json"
+      data:
+        _method: 'delete'
+      success: =>
+        $('.sidebar-question .question').html("")
+        $('.question-btn').removeClass('btn-success').addClass('btn-default')
+      error: (response, status, error) ->
+        console.log("Delete messages:", status, "; Error:", error)
+
+  clearChat: =>
     $.ajax
       url: @localhost + "/messages"
       type: "post"
@@ -90,6 +100,7 @@ class window.Chat
         _method: 'delete'
       success: =>
         $('.sidebar-question .question').html("")
+        $('.question-btn').removeClass('btn-success').addClass('btn-default')
         $('#chat').html("")
       error: (response, status, error) ->
         console.log("Delete messages:", status, "; Error:", error)
@@ -105,27 +116,25 @@ class window.Chat
         console?.log(data)
         for message in data.messages
           @appendMessage message
-        lastQuestion = data.last_question
-        $('.sidebar-question .content').html(lastQuestion.message) unless lastQuestion.ID == 0
+        for question in data.last_questions
+          $('.sidebar-question .content-' + question.language).html(question.message) unless question.ID == 0
       error: (response, status, error) ->
         console.log("List Messages:", status, "; Error:", error)
 
   showQuestion: (event) =>
-    content = $('.sidebar-question .content').html()
+    lang = event.data.lang
+    content = $('.sidebar-question .content-' + lang).html()
     big_window.displayLiveQuestion(content)
-    $('.show-question').removeClass('btn-success').addClass('btn-default')
-    false
+    $('.show-question-' + lang).removeClass('btn-success').addClass('btn-default')
+    $.ajax
+      url: @localhost + "/questions/approve/" + lang
+      type: "GET"
+      dataType: "json"
+      success: (data, status, response) =>
+        console?.log("approved")
+      error: (response, status, error) ->
+        console.log("Approval:", status, "; Error:", error)
 
-  showQuestionEn: (event) =>
-    content = $('.sidebar-question .content-en').html()
-#    big_window.displayLiveQuestion(content)
-    $('.show-question-en').removeClass('btn-success').addClass('btn-default')
-    false
-
-  showQuestionRu: (event) =>
-    content = $('.sidebar-question .content-ru').html()
-    #    big_window.displayLiveQuestion(content)
-    $('.show-question-ru').removeClass('btn-success').addClass('btn-default')
     false
 
   switchSlidesQuestion: (event) =>
@@ -162,8 +171,9 @@ class window.Chat
 
   checkNewQuestion: (message) =>
     data = message.message
-    old_data = @content.html()
+    content = $('.sidebar-question .content-' + message.language)
+    old_data = content.html()
     if (data != old_data)
-      @content.html(data)
-      $('.show-question').removeClass('btn-default').addClass('btn-success')
+      content.html(data)
+      $('.show-question-' + message.language).removeClass('btn-default').addClass('btn-success')
       @endAudio.play()

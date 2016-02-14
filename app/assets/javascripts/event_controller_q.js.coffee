@@ -72,6 +72,7 @@ class window.Chat
     $('#message').keypress (e) -> $('#send').click() if e.keyCode == 13
 
   loadMessages: =>
+    language = $('select.selectpicker').val()
     $.ajax
       url: @localhost + "/messages"
       type: "GET"
@@ -80,32 +81,28 @@ class window.Chat
         console?.log(data)
         for message in data.messages
           @appendMessage message
-        lastQuestion = data.last_question
-        $('#question_question').html(lastQuestion.message) unless lastQuestion.ID == 0
+        for question in data.last_questions
+          if  question.ID != 0 && question.language == language
+            $('#question_question').html(question.message)
       error: (response, status, error) ->
         console.log("List Messages:", status, "; Error:", error)
 
-  sendQuestion: (event) =>
+  _sendOne: (event, type) =>
     event.preventDefault()
     message = @question.val()
     language = $('select.selectpicker').val()
     @dispatcher.send JSON.stringify {
       user_name: @userName(language),
       message: message,
-      type: 'question',
+      type: type,
       language: language
     }
 
+  sendQuestion: (event) =>
+    @_sendOne(event, 'question')
+
   sendMessage: (event) =>
-    event.preventDefault()
-    message = @message.val()
-    language = $('select.selectpicker').val()
-    @dispatcher.send JSON.stringify {
-      user_name: @userName(language),
-      message: message,
-      type: 'message',
-      language: language
-    }
+    @_sendOne(event, 'message')
     @message.val('')
 
   appendMessage: (message) =>

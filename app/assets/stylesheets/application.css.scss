@@ -132,6 +132,7 @@ body {
 #chat {
   overflow: auto;
   height: 30vh;
+  width: 100%;
 }
 
 .really-slim {
@@ -195,4 +196,12 @@ body {
 
 .grid {
   align-items: stretch;
+}
+
+.message {
+  direction: ltr;
+}
+
+.message-he {
+  direction: rtl;
 }

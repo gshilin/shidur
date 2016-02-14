@@ -1,5 +1,5 @@
 class ThreeLanguagesController < ApplicationController
-  layout false
+  layout 'three'
 
   def index
   end
