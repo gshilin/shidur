@@ -87,9 +87,8 @@ class window.Chat
       error: (response, status, error) ->
         console.log("List Messages:", status, "; Error:", error)
 
-  _sendOne: (event, type) =>
+  _sendOne: (message, type, event) =>
     event.preventDefault()
-    message = @question.val()
     language = $('select.selectpicker').val()
     @dispatcher.send JSON.stringify {
       user_name: @userName(language),
@@ -99,10 +98,10 @@ class window.Chat
     }
 
   sendQuestion: (event) =>
-    @_sendOne(event, 'question')
+    @_sendOne(@question.val(), 'question', event)
 
   sendMessage: (event) =>
-    @_sendOne(event, 'message')
+    @_sendOne(@message.val(), 'message', event)
     @message.val('')
 
   appendMessage: (message) =>
