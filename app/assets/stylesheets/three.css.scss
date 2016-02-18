@@ -3,44 +3,58 @@
  */
 @import "reset";
 
-@font-face {
-  font-family: 'Noto Sans Hebrew';
-  font-style: normal;
-  font-weight: 400;
-  src: font-url('NotoSansHebrew-Regular.ttf') format('truetype');
-}
+//@font-face {
+//  font-family: 'Noto Sans Hebrew';
+//  font-style: normal;
+//  font-weight: 400;
+//  src: font-url('NotoSansHebrew-Regular.ttf') format('truetype');
+//}
+//
+//@font-face {
+//  font-family: 'Noto Sans Hebrew';
+//  font-style: normal;
+//  font-weight: 700;
+//  src: font-url('NotoSansHebrew-Bold.ttf') format('truetype');
+//}
+//
+//@font-face {
+//  font-family: 'Noto Sans';
+//  font-style: normal;
+//  font-weight: 400;
+//  src: font-url('NotoSans-Regular.ttf') format('truetype');
+//}
+//
+//@font-face {
+//  font-family: 'Noto Sans';
+//  font-style: normal;
+//  font-weight: 700;
+//  src: font-url('NotoSans-Bold.ttf') format('truetype');
+//}
 
 @font-face {
-  font-family: 'Noto Sans Hebrew';
+  font-family: 'Oron';
   font-style: normal;
-  font-weight: 700;
-  src: font-url('NotoSansHebrew-Bold.ttf') format('truetype');
+  font-weight: normal;
+  src: font-url('Oron-Medium.otf') format('opentype');
 }
-
 @font-face {
-  font-family: 'Noto Sans';
+  font-family: 'Oron';
   font-style: normal;
-  font-weight: 400;
-  src: font-url('NotoSans-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Noto Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: font-url('NotoSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  src: font-url('Oron-Bold.otf') format('opentype');
 }
 
 $color-blue: #2C8CD2;
 $color-font: #444;
-$color-background: #F1F3F4;
+$color-background: #fff;
 
 body {
   background: $color-background;
   color: $color-font;
   font-size: 40px;
-  font-famiy: 'Noto Sans Hebrew', 'Noto Sans', sans-serif;
-  line-height: 1.3;
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+  font-weight:bold;
 }
 
 .wrapper {
@@ -60,6 +74,18 @@ body {
   // height: 720px; /*pal widescreen heigh*/
   padding: 128px 72px; /*pal widescreen safest zone*/
   padding: 36px 64px; /*pal widescreen safe zone*/
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(bg.png) no-repeat center center / cover;
+    z-index: -1;
+    opacity: 1;
+  }
 }
 
 header, footer {
@@ -74,6 +100,9 @@ header, footer {
   padding: .4em 0.3em 0;
   margin: 0 .5em 0 0;
   display: inline-block;
+  font-family: Arial, sans-serif;
+  letter-spacing: normal;
+  word-spacing: normal;
   .lang-heb & {
     margin: 0 0 0 .5em;
   }
@@ -97,5 +126,8 @@ header, footer {
 
 .lang-heb {
   direction: rtl;
-  font-size: 50px;
+  font-family: Oron, Arial, sans-serif;
+  line-height: 1.35;
+  letter-spacing: 1px;
+  word-spacing: 5px;
 }
