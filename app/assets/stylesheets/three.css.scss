@@ -3,34 +3,6 @@
  */
 @import "reset";
 
-//@font-face {
-//  font-family: 'Noto Sans Hebrew';
-//  font-style: normal;
-//  font-weight: 400;
-//  src: font-url('NotoSansHebrew-Regular.ttf') format('truetype');
-//}
-//
-//@font-face {
-//  font-family: 'Noto Sans Hebrew';
-//  font-style: normal;
-//  font-weight: 700;
-//  src: font-url('NotoSansHebrew-Bold.ttf') format('truetype');
-//}
-//
-//@font-face {
-//  font-family: 'Noto Sans';
-//  font-style: normal;
-//  font-weight: 400;
-//  src: font-url('NotoSans-Regular.ttf') format('truetype');
-//}
-//
-//@font-face {
-//  font-family: 'Noto Sans';
-//  font-style: normal;
-//  font-weight: 700;
-//  src: font-url('NotoSans-Bold.ttf') format('truetype');
-//}
-
 @font-face {
   font-family: 'Oron';
   font-style: normal;
@@ -51,7 +23,7 @@ $color-background: #fff;
 body {
   background: $color-background;
   color: $color-font;
-  font-size: 40px;
+  font-size: 64px;
   font-family: Arial, sans-serif;
   line-height: 1.4;
   font-weight:bold;
