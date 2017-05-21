@@ -3,6 +3,7 @@ class window.BigWindow
     'height="' + screen.height + '",width="' + screen.width + '",titlebar=no,fullscreen=yes,menubar=no,location=no,resizable=yes,scrollbars=no,status=no')
 
   show_slide: true
+  full_screen: false
 
   constructor: ->
     $('.show-question').on 'click', (event) =>
@@ -13,23 +14,53 @@ class window.BigWindow
       $('.show-question').removeClass('btn-success').addClass('btn-default')
       false
 
-    $('.switch-slides-question').on 'click', (event) =>
+    $('.switch-slide-question').on 'click', (event) =>
       event.stopPropagation()
       event.stopImmediatePropagation()
-      @switchSlidesQuestion()
+      @setQuestion()
+      false
+
+    $('.switch-slide-slide').on 'click', (event) =>
+      event.stopPropagation()
+      event.stopImmediatePropagation()
+      @setSlide()
       false
 
   displayLiveSlide: (content) =>
+    content = content.replace(/<br>/g, '')
     $(@bigWindow.document.body).find(".content").html(content)
 
   displayLiveQuestion: (content) =>
     $(@bigWindow.document.body).find(".question").html(content)
 
-  switchSlidesQuestion: =>
+  setFullScreen: =>
+    @full_screen = true
+    @doDisplay()
+
+  setHalfScreen: =>
+    @full_screen = false
+    @doDisplay()
+
+  setSlide: =>
+    @show_slide = true
+    @doDisplay()
+
+  setQuestion: =>
+    @show_slide = false
+    @doDisplay()
+
+  doDisplay: =>
     question = $(@bigWindow.document.body).find(".question")[0]
     slide = $(@bigWindow.document.body).find(".slides")[0]
-    @show_slide = !@show_slide;
-    slide.style.display = if this.show_slide then 'block' else 'none'
-    question.style.display = if this.show_slide then 'none' else 'block'
-    if this.show_slide then title = 'לשאלות' else title = 'לשקופיות'
-    $('.switch-slides-question').html(title)
+    full_screen = $(@bigWindow.document.body).find(".full-screen")[0]
+    if this.show_slide
+      if this.full_screen
+        full_screen.style.display = 'block'
+        slide.style.display = 'none'
+      else
+        slide.style.display = 'block'
+        full_screen.style.display = 'none'
+      question.style.display = 'none'
+    else
+      full_screen.style.display = slide.style.display = 'none'
+      question.style.display = 'block'

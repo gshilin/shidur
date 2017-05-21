@@ -210,3 +210,19 @@ body {
   padding-bottom: 2em;
   background: #dadada;
 }
+
+.navbar-nav > li > a {
+  padding:1px 5px !important;
+  line-height:18px !important;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: black !important;
+}
+
+.navbar-brand {
+  display: inline-block;
+  margin: 10px 5px 0 !important;
+}

@@ -74,9 +74,22 @@ class window.Chat
     $('.show-question-he').on 'click', {lang: 'he'}, @showQuestion
     $('.show-question-en').on 'click', {lang: 'en'}, @showQuestion
     $('.show-question-ru').on 'click', {lang: 'ru'}, @showQuestion
-    $('.switch-slides-question').on 'click', @switchSlidesQuestion
+    $('.switch-slides-slide').on 'click', @setSlide
+    $('.switch-slides-question').on 'click', @setQuestion
+    $('.switch-half-screen').on 'click', @setHalfScreen
+    $('.switch-full-screen').on 'click', @setFullScreen
     $('.clear-all').on 'click', @clearChat
     $('.clear-button').on 'click', @clearQuestions
+
+  setFullScreen: =>
+    big_window.setFullScreen()
+    $('.switch-full-screen').removeClass('btn-danger').addClass('btn-success')
+    $('.switch-half-screen').removeClass('btn-success').addClass('btn-danger')
+
+  setHalfScreen: =>
+    big_window.setHalfScreen()
+    $('.switch-half-screen').removeClass('btn-danger').addClass('btn-success')
+    $('.switch-full-screen').removeClass('btn-success').addClass('btn-danger')
 
   clearQuestions: =>
     $.ajax
@@ -137,10 +150,20 @@ class window.Chat
 
     false
 
-  switchSlidesQuestion: (event) =>
+  setSlide: (event) =>
     event.stopPropagation()
     event.stopImmediatePropagation()
-    big_window.switchSlidesQuestion()
+    big_window.setSlide()
+    $('.switch-slides-slide').removeClass('btn-danger').addClass('btn-success')
+    $('.switch-slides-question').removeClass('btn-success').addClass('btn-danger')
+  false
+
+  setQuestion: (event) =>
+    event.stopPropagation()
+    event.stopImmediatePropagation()
+    big_window.setQuestion()
+    $('.switch-slides-slide').removeClass('btn-success').addClass('btn-danger')
+    $('.switch-slides-question').removeClass('btn-danger').addClass('btn-success')
     false
 
   sendMessage: (event) =>

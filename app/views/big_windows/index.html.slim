@@ -30,7 +30,7 @@ html lang="he"
       .slides .backdrop {
         width: 100%;
         height: 310px;
-        padding: 0 1.5em 0 1.1em;
+        padding: 0.2em 1.5em 0 1.1em;
         background: rgb(201, 191, 177);
         color: black;
         text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
@@ -45,7 +45,28 @@ html lang="he"
         font-size: 1.4em;
         text-align: center;
       }
-
+      .full-screen {
+        display: none;
+        background: green url(/full-screen-bg.jpg) no-repeat 0 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+      .full-screen .content {
+        width: calc(1920px - 600px);
+        height: calc(1080px - 250px);
+        direction: rtl;
+        font-family: Arial, sans-serif;
+        font-size: 76px;
+        font-weight:bold;
+        line-height: 100px;
+        margin: 250px 300px 0 300px;
+        overflow: hidden;
+      }
       .question {
         display: none;
         width: 100%;
@@ -76,6 +97,8 @@ html lang="he"
       }
 
   body
+    .full-screen
+      .content
     .slides
       .content
     .question
