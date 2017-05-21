@@ -78,6 +78,25 @@ body {
     font-size: 1.4em;
     text-align: center;
   }
+  h4 {
+    margin: 0 0 0 1em;
+    line-height: 1em;
+    font-size: 1.0em;
+    text-align: center;
+  }
+  h5 {
+    margin: 0 0 0 1em;
+    line-height: 1em;
+    font-size: 0.8em;
+    text-align: center;
+  }
+  .source {
+    margin-top: 1em;
+    font-size: smaller;
+    border-top: 2px solid;
+    display: inline-block;
+    float: left;
+  }
 }
 
 .slides {
