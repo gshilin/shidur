@@ -62,19 +62,15 @@ html lang="he"
       }
 
       .slides .source {
-        margin-top: 1em;
+        margin-top: 0.3em;
         font-size: smaller;
-        border-top: 2px solid;
+        border-top: 3px solid;
         display: inline-block;
-        float: left;
-        clear: both;
+        line-height: 45px;
+        width: 100%;
+        padding-top: 0.25em;
+        text-align: left;
       }
-
-      .slides .source:before {
-        content: '\00a0'; /* &nbsp;*/
-        float: left;
-      }
-
       .full-screen {
         display: none;
         background: green url(/full-screen-bg.jpg) no-repeat 0 0;
@@ -87,33 +83,29 @@ html lang="he"
         height: 1080px;
       }
 
-      .full-screen .source:before {
-        content: '\00a0'; /* &nbsp;*/
-        float: left;
-      }
-
       .full-screen .source {
-        margin-top: 1em;
-        font-size: smaller;
-        border-top: 2px solid;
+        margin-top: 0.3em;
+        font-size: 60px;
+        border-top: 3px solid;
         display: inline-block;
-        float: left;
-        clear: both;
+        line-height: 70px;
+        width: 100%;
+        text-align: left;
       }
 
       .full-screen .content {
-        width: calc(1920px - 600px);
+        width: calc(1920px - 500px);
         height: calc(1080px - 250px);
         direction: rtl;
         font-family: Arial, sans-serif;
         font-size: 88px;
         font-weight: bold;
         line-height: 100px;
-        margin: 250px 300px 0 300px;
+        margin: 250px 250px 0 250px;
         overflow: hidden;
       }
 
-      .question {
+      .questions {
         display: none;
         width: 100%;
         direction: rtl;
@@ -133,7 +125,7 @@ html lang="he"
         text-align: center;
       }
 
-      .question:before {
+      .questions:before {
         content: ' ';
         position: absolute;
         top: 0;
@@ -143,9 +135,17 @@ html lang="he"
         border-top: 15px solid #c9cbcd;
       }
 
+      .question {
+        height: 220px;
+        display: none;
+      }
+
   body
     .full-screen
       .content
     .slides
       .content
-    .question
+    .questions
+      .question.question-he
+      .question.question-en
+      .question.question-ru

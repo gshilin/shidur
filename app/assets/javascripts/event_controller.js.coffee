@@ -80,6 +80,7 @@ class window.Chat
     $('.switch-full-screen').on 'click', @setFullScreen
     $('.clear-all').on 'click', @clearChat
     $('.clear-button').on 'click', @clearQuestions
+    $('.hide-button').on 'click', @hideQuestions
 
   setFullScreen: =>
     big_window.setFullScreen()
@@ -134,10 +135,13 @@ class window.Chat
       error: (response, status, error) ->
         console.log("List Messages:", status, "; Error:", error)
 
+  hideQuestions: () =>
+    big_window.clearLiveQuestion() #if lang == 'he'
+
   showQuestion: (event) =>
     lang = event.data.lang
     content = $('.sidebar-question .content-' + lang).html()
-    big_window.displayLiveQuestion(content) if lang == 'he'
+    big_window.displayLiveQuestion(content, lang) #if lang == 'he'
     $('.show-question-' + lang).removeClass('btn-success').addClass('btn-default')
     $.ajax
       url: @localhost + "/questions/approve/" + lang

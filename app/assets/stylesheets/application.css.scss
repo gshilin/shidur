@@ -27,6 +27,10 @@ body {
   background: $bg-color;
 }
 
+.clear-button {
+  margin-top: 10px;
+}
+
 // SIDEBAR
 .sidebar {
   position: fixed;
@@ -91,11 +95,13 @@ body {
     text-align: center;
   }
   .source {
-    margin-top: 1em;
+    margin-top: 0.3em;
     font-size: smaller;
-    border-top: 2px solid;
+    border-top: 3px solid;
     display: inline-block;
-    float: left;
+    line-height: 25px;
+    width: 100%;
+    padding-top: 0.25em;
   }
 }
 
@@ -231,8 +237,8 @@ body {
 }
 
 .navbar-nav > li > a {
-  padding:1px 5px !important;
-  line-height:18px !important;
+  padding: 1px 5px !important;
+  line-height: 18px !important;
   margin-right: 5px;
   margin-bottom: 5px;
 }
