@@ -42,6 +42,10 @@ class window.BigWindow
 
   displayLiveQuestion: (content, lang) =>
     q = $(@bigWindow.document.body).find(".question-" + lang)
+    if q.html() != ''
+      q.html(content)
+      return
+
     q.html(content)
     @slides.push(q)
     if !this.show_slide
