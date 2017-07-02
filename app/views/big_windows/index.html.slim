@@ -69,6 +69,7 @@ html lang="he"
         line-height: 45px;
         width: 100%;
         padding-top: 0.25em;
+        text-align: left;
       }
 
       .full-screen {
@@ -90,27 +91,19 @@ html lang="he"
         display: inline-block;
         line-height: 70px;
         width: 100%;
+        text-align: left;
       }
 
       .full-screen .content {
-        width: calc(1920px - 600px);
+        width: calc(1920px - 500px);
         height: calc(1080px - 250px);
         direction: rtl;
         font-family: Arial, sans-serif;
         font-size: 88px;
         font-weight: bold;
         line-height: 100px;
-        margin: 250px 300px 0 300px;
+        margin: 250px 250px 0 250px;
         overflow: hidden;
-      }
-
-      @keyframes load {
-        from {
-          left: -100%;
-        }
-        to {
-          left: 0;
-        }
       }
 
       .questions {
@@ -144,11 +137,8 @@ html lang="he"
       }
 
       .question {
-        -webkit-transition: all 0.5s linear;
-        -moz-transition: all 0.5s linear;
-        -ms-transition: all 0.5s linear;
-        -o-transition: all 0.5s linear;
-        transition: all 0.5s linear;
+        height: 220px;
+        display: none;
       }
 
   body

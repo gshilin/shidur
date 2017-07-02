@@ -44,7 +44,8 @@ class window.BigWindow
     q = $(@bigWindow.document.body).find(".question-" + lang)
     q.html(content)
     @slides.push(q)
-    $(@bigWindow.document.body).find(".questions").css('display', 'block')
+    if !this.show_slide
+       $(@bigWindow.document.body).find(".questions").css('display', 'block')
     if @lastTimeout == undefined
       @carousel()
 
@@ -65,10 +66,12 @@ class window.BigWindow
 
   setFullScreen: =>
     @full_screen = true
+    @show_slide = true
     @doDisplay()
 
   setHalfScreen: =>
     @full_screen = false
+    @show_slide = true
     @doDisplay()
 
   setSlide: =>
