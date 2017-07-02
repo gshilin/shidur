@@ -26,12 +26,42 @@ class window.BigWindow
       @setSlide()
       false
 
+    @carousel()
+
   displayLiveSlide: (content) =>
     content = content.replace(/<br>/g, '')
     $(@bigWindow.document.body).find(".content").html(content)
 
-  displayLiveQuestion: (content) =>
-    $(@bigWindow.document.body).find(".question").html(content)
+  clearLiveQuestion: =>
+    window.clearTimeout(@lastTimeout)
+    @lastTimeout = undefined
+    $(@bigWindow.document.body).find(".question").html('').css('display', 'none')
+    $(@bigWindow.document.body).find(".questions").css('display', 'none')
+    @slides = []
+    @slideIndex = 1
+
+  displayLiveQuestion: (content, lang) =>
+    q = $(@bigWindow.document.body).find(".question-" + lang)
+    q.html(content)
+    @slides.push(q)
+    $(@bigWindow.document.body).find(".questions").css('display', 'block')
+    if @lastTimeout == undefined
+      @carousel()
+
+  slideIndex: 1
+  slides: []
+  lastTimeout: undefined
+
+  carousel: =>
+    if @slides[@slideIndex - 1]
+      @slides[@slideIndex - 1].css('display', 'none')
+    @slideIndex++
+    if @slideIndex > @slides.length
+      @slideIndex = 1
+    if @slides[@slideIndex - 1]
+      @slides[@slideIndex - 1].css('display', 'block')
+    # Change image every 10 seconds
+    @lastTimeout = setTimeout(@carousel, 10000)
 
   setFullScreen: =>
     @full_screen = true
@@ -50,7 +80,7 @@ class window.BigWindow
     @doDisplay()
 
   doDisplay: =>
-    question = $(@bigWindow.document.body).find(".question")[0]
+    questions = $(@bigWindow.document.body).find(".questions")[0]
     slide = $(@bigWindow.document.body).find(".slides")[0]
     full_screen = $(@bigWindow.document.body).find(".full-screen")[0]
     if this.show_slide
@@ -60,7 +90,7 @@ class window.BigWindow
       else
         slide.style.display = 'block'
         full_screen.style.display = 'none'
-      question.style.display = 'none'
+      questions.style.display = 'none'
     else
       full_screen.style.display = slide.style.display = 'none'
-      question.style.display = 'block'
+      questions.style.display = 'block'
