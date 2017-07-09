@@ -1,3 +1,15 @@
+h1 Hebrew
 ol
-  - @questions.each do |q|
+  - Message.where(type: 'question', language: :he).order(:id).all.each do |q|
     li = q.message
+h1 English
+ol
+  - Message.where(type: 'question', language: :en).order(:id).all.each do |q|
+    li = q.message
+h1 Russian
+ol
+  - Message.where(type: 'question', language: :ru).order(:id).all.each do |q|
+    li = q.message
+
+br
+h1 Remember of the Goal!!!
