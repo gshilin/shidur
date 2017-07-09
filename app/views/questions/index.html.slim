@@ -1,4 +1,4 @@
-h1 Hebrew
+h1 עברית
 ol
   - Message.where(type: 'question', language: :he).order(:id).all.each do |q|
     li = q.message
@@ -7,7 +7,7 @@ ol
   ol
     - Message.where(type: 'question', language: :en).order(:id).all.each do |q|
       li = q.message
-  h1 Russian
+  h1 Русский
   ol
     - Message.where(type: 'question', language: :ru).order(:id).all.each do |q|
       li = q.message
