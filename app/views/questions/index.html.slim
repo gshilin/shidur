@@ -11,6 +11,10 @@ ol
   ol
     - Message.where(type: 'question', language: :ru).order(:id).all.each do |q|
       li = q.message
+  h1 Español
+  ol
+    - Message.where(type: 'question', language: :es).order(:id).all.each do |q|
+      li = q.message
 
   br
   h1 Remember of the Goal!!!

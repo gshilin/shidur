@@ -117,3 +117,4 @@ class window.Chat
       when 'he' then 'עורך'
       when 'en' then 'editor'
       when 'ru' then 'редактор'
+      when 'es' then 'eWl editor'
