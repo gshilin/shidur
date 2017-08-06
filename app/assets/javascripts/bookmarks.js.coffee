@@ -17,7 +17,7 @@ class window.Bookmarks
     @getAllBookmarks()
 
     $('.sidebar-bookmarks ul').droppable
-      activeClass: "ui-state-highlight"
+      activeClass: "ui-state-default"
       hoverClass: "drop-hover"
       tolerance: 'pointer'
       drop: (event, ui) =>

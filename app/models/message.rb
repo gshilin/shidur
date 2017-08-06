@@ -12,4 +12,5 @@
 #
 
 class Message < ActiveRecord::Base
+   Message.inheritance_column =''
 end
