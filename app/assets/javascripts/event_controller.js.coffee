@@ -74,6 +74,7 @@ class window.Chat
     $('.show-question-he').on 'click', {lang: 'he'}, @showQuestion
     $('.show-question-en').on 'click', {lang: 'en'}, @showQuestion
     $('.show-question-ru').on 'click', {lang: 'ru'}, @showQuestion
+    $('.show-question-es').on 'click', {lang: 'es'}, @showQuestion
     $('.switch-slides-slide').on 'click', @setSlide
     $('.switch-slides-question').on 'click', @setQuestion
     $('.switch-half-screen').on 'click', @setHalfScreen
