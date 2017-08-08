@@ -3,26 +3,80 @@
     = simple_form_for Question.new do |f|
       .form-group
         button#question.btn.btn-danger.btn-large.pull-left שלח שאלה לסדנה​
-        a.btn.btn-default.btn-large.pull-left href="#" style="margin: auto 10px;" onclick="$('#question_question').val(''); return false;" נקה שאלה
-        select.selectpicker.show-menu-arrow.form-control.pull-left data-width="fit"
+        a#clear-q.btn.btn-default.btn-large.pull-left href="#" style="margin: auto 10px;" onclick="$('#question_question').val(''); return false;" נקה שאלה
+        select#language.selectpicker.show-menu-arrow.form-control.pull-left data-width="fit"
           option value="he" Hebrew
           option value="en" English
           option value="ru" Russian
           option value="es" Español
-      h3 שאלה לסדנה​
+      h3#title שאלה לסדנה​
 
       = f.input :question, label: false, as: :text, input_html: { class: 'form-control',
-        style: 'margin-top: 0px; margin-bottom: 0px; height: 248px; font-size: 46px; width: 1283px; line-height: 50px; padding: 23px 51px;' }
+              style: 'margin-top: 0px; margin-bottom: 0px; height: 248px; font-size: 46px; width: 1283px; line-height: 50px; padding: 23px 51px;' }
 
   .row
     h3
-      ' צ'ט
+      span#chat-title  צ'ט
       .led.led-red
     .form-inline.well
       fieldset
-        input#message.col-md-11 type="text"
+        input#message.col-md-11
         .col-md-1
-          button#send.btn.btn-primary Send
+          button#send.btn.btn-primary שלח
 
 
     #chat.well style="height: 200px; overflow: auto;"
+
+  javascript:
+    var t = {
+      'en': {
+        'question':   'Send Seminar Question',
+        'clear-q':    'Clear Question',
+        'title':      'Seminar Question',
+        'chat-title': 'Chat',
+        'send':       'Send'
+      },
+      'he': {
+        'question':   'שלח שאלה לסדנה​',
+        'clear-q':    'נקה שאלה',
+        'title':      'שאלה לסדנה​',
+        'chat-title': 'צ\'ט',
+        'send':       'שלח'
+      },
+      'ru': {
+        'question':   'Послать вопрос для семинара',
+        'clear-q':    'Удалить вопрос',
+        'title':      'Вопрос для семинара',
+        'chat-title': 'Чат',
+        'send':       'Шли'
+      },
+      'es': {
+        'question':   'Enviar pregunta sobre el seminario',
+        'clear-q':    'Pregunta clara',
+        'title':      'Pregunta del Seminario',
+        'chat-title': 'Charla',
+        'send':       'Enviar'
+      }
+    };
+
+    function setValue(id, language) {
+      document.getElementById(id).innerText = t[ language ][ id ];
+    }
+
+    function change_lang(event) {
+      var language = event.target.value;
+      setValue('question', language);
+      setValue('clear-q', language);
+      setValue('title', language);
+      setValue('chat-title', language);
+      setValue('send', language);
+      if (language === 'he') {
+        document.getElementById("question_question").style.direction = 'rtl';
+        document.getElementById("message").style.direction = 'rtl';
+      } else {
+        document.getElementById("question_question").style.direction = 'ltr';
+        document.getElementById("message").style.direction = 'ltr';
+      }
+    }
+
+    document.getElementById("language").addEventListener("change", change_lang);

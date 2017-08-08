@@ -9,7 +9,6 @@ class window.Chat
     screen_width = $('#chat').width()
     $field = $('#question_question')
     ratio = screen_width / $field.width()
-    #console.log("ratio", ratio)
     $field.css({transform: 'scale(' + ratio + ')', 'transform-origin': 'top right'})
 
   template_message: (message) ->
@@ -78,7 +77,6 @@ class window.Chat
       type: "GET"
       dataType: "json"
       success: (data, status, response) =>
-        console?.log(data)
         for message in data.messages
           @appendMessage message
         for question in data.last_questions
