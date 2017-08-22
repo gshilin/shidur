@@ -1,0 +1,55 @@
+css:
+  * {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: green;
+  }
+
+  p {
+    display: none;
+  }
+
+  .questions {
+    width: 100%;
+    direction: ltr;
+    position: absolute;
+    top: 796px;
+    right: 0;
+    max-height: 246px;
+    overflow: hidden;
+    padding: 0.2em 1.1em;
+    color: black;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+    font-size: 64px;
+    line-height: 68px;
+    border-top: 15px solid #4997f7;
+    background: #fcf5f5;
+    text-align: center;
+  }
+
+  .questions:before {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 15px solid #c9cbcd;
+  }
+
+  .question {
+    height: 220px;
+    display: none;
+  }
+
+  .question-he {
+    direction: rtl;
+  }
+
+.questions
+  - @accept.each do |lang|
+    .question class="question-#{lang}"

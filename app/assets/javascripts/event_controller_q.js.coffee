@@ -88,12 +88,23 @@ class window.Chat
   _sendOne: (message, type, event) =>
     event.preventDefault()
     language = $('select.selectpicker').val()
-    @dispatcher.send JSON.stringify {
+    payload = {
       user_name: @userName(language),
       message: message,
       type: type,
       language: language
     }
+    @dispatcher.send JSON.stringify payload
+    if language == 'cg'
+      $.ajax
+        url: @localhost + "/questions/approve/cg"
+        type: "GET"
+        dataType: "json"
+        success: (data, status, response) =>
+          console?.log("approved")
+        error: (response, status, error) ->
+          console?.log("Approval:", status, "; Error:", error)
+
 
   sendQuestion: (event) =>
     @_sendOne(@question.val(), 'question', event)
@@ -116,3 +127,4 @@ class window.Chat
       when 'en' then 'editor'
       when 'ru' then 'редактор'
       when 'es' then 'El editor'
+      when 'cg' then 'Congress'

@@ -132,12 +132,13 @@ class window.Chat
         for message in data.messages
           @appendMessage message
         for question in data.last_questions
-          $('.sidebar-question .content-' + question.language).html(question.message) unless question.ID == 0
+          $('.sidebar-question .content-' + question.language).html(question.message) unless question.id == 0
       error: (response, status, error) ->
         console.log("List Messages:", status, "; Error:", error)
 
   hideQuestions: () =>
-    big_window.clearLiveQuestion() #if lang == 'he'
+    big_window.clearLiveQuestion()
+    @clearQuestions()
 
   showQuestion: (event) =>
     lang = event.data.lang
@@ -151,7 +152,7 @@ class window.Chat
       success: (data, status, response) =>
         console?.log("approved")
       error: (response, status, error) ->
-        console.log("Approval:", status, "; Error:", error)
+        console?.log("Approval:", status, "; Error:", error)
 
     false
 
@@ -180,20 +181,16 @@ class window.Chat
   appendMessages: (payload) =>
     message = JSON.parse payload.data
     console?.log "Message: ", message
+    messageTemplate = @template_question(message)
     if message.type == 'question'
-      messageTemplate = @template_question(message)
       @checkNewQuestion message
-    else
-      messageTemplate = @template_message(message)
     $('#chat').prepend messageTemplate
     messageTemplate.slideDown 140
 
   appendMessage: (message) =>
+    messageTemplate = @template_question(message)
     if message.type == 'question'
-      messageTemplate = @template_question(message)
       @checkNewQuestion message
-    else
-      messageTemplate = @template_message(message)
     $('#chat').prepend messageTemplate
     messageTemplate.slideDown 140
 
@@ -201,7 +198,7 @@ class window.Chat
     data = message.message
     content = $('.sidebar-question .content-' + message.language)
     old_data = content.html()
-    if (data != old_data)
+    if (data != old_data && message.language != 'cg')
       content.html(data)
       $('.show-question-' + message.language).removeClass('btn-default').addClass('btn-success')
       @endAudio.play()

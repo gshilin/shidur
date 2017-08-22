@@ -208,11 +208,22 @@ body {
   padding-top: 0;
   padding-bottom: 0;
   font-size: 12px;
+  position: absolute;
+  left: 49px;
 }
 
 .question {
   height: 70px;
   font-size: 12px;
+  padding: 0 5px;
+}
+
+.content-he {
+  direction: rtl;
+}
+
+.content-en, .content-ru, .content-es {
+  direction: ltr;
 }
 
 .well {

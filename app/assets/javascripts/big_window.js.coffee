@@ -5,6 +5,10 @@ class window.BigWindow
   show_slide: true
   full_screen: false
 
+  slideIndex: 1
+  slides: []
+  lastTimeout: undefined
+
   constructor: ->
     $('.show-question').on 'click', (event) =>
       content = $('.sidebar-question .content').html()
@@ -26,18 +30,16 @@ class window.BigWindow
       @setSlide()
       false
 
-    @carousel()
-
   displayLiveSlide: (content) =>
     content = content.replace(/<br>/g, '')
     $(@bigWindow.document.body).find(".content").html(content)
 
   clearLiveQuestion: =>
-    window.clearTimeout(@lastTimeout)
+    window.clearTimeout(@lastTimeout) if @lastTimeout
     @lastTimeout = undefined
     $(@bigWindow.document.body).find(".question").html('').css('display', 'none')
     $(@bigWindow.document.body).find(".questions").css('display', 'none')
-    @slides = []
+    @slides     = []
     @slideIndex = 1
 
   displayLiveQuestion: (content, lang) =>
@@ -49,13 +51,9 @@ class window.BigWindow
     q.html(content)
     @slides.push(q)
     if !this.show_slide
-       $(@bigWindow.document.body).find(".questions").css('display', 'block')
+      $(@bigWindow.document.body).find(".questions").css('display', 'block')
     if @lastTimeout == undefined
       @carousel()
-
-  slideIndex: 1
-  slides: []
-  lastTimeout: undefined
 
   carousel: =>
     if @slides[@slideIndex - 1]
@@ -70,12 +68,12 @@ class window.BigWindow
 
   setFullScreen: =>
     @full_screen = true
-    @show_slide = true
+    @show_slide  = true
     @doDisplay()
 
   setHalfScreen: =>
     @full_screen = false
-    @show_slide = true
+    @show_slide  = true
     @doDisplay()
 
   setSlide: =>
@@ -93,9 +91,9 @@ class window.BigWindow
     if this.show_slide
       if this.full_screen
         full_screen.style.display = 'block'
-        slide.style.display = 'none'
+        slide.style.display       = 'none'
       else
-        slide.style.display = 'block'
+        slide.style.display       = 'block'
         full_screen.style.display = 'none'
       questions.style.display = 'none'
     else
