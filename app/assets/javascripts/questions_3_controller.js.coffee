@@ -44,7 +44,7 @@ class window.Q3
       type: "GET"
       dataType: "json"
       success: (data, status, response) =>
-        console?.log(data)
+        console?.log("Got data:", data)
         for question in data.questions
           if question.ID == 0
             $('.text-' + question.language).html('')
