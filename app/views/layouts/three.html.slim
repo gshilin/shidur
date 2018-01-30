@@ -9,9 +9,8 @@ html lang="he"
     = stylesheet_link_tag 'three', media: 'all'
     = csrf_meta_tags
   body
-    .wrapper
-      .languages
-        = yield
+    .languages
+      = yield
 
     = javascript_include_tag 'three'
 
