@@ -44,7 +44,7 @@ class window.Q3
       type: "GET"
       dataType: "json"
       success: (data, status, response) =>
-        console?.log(data)
+        console?.log("Got data:", data)
         for question in data.questions
           if question.ID == 0
             $('.text-' + question.language).html('')
@@ -59,5 +59,5 @@ class window.Q3
       $('.text').html('')
       return
     console?.log "Message: ", message
-    if message.type == 'question' and message.approved == true and message.language = 'cg'
-      $('.text').html(message.message)
+    if message.type == 'question' and message.approved == true # and message.language == 'cg'
+      $('.text-' + message.language).html(message.message)
