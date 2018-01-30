@@ -58,6 +58,5 @@ class window.Q3
     if message.length == 0
       $('.text').html('')
       return
-    console?.log "Message: ", message
-    if message.type == 'question' and message.approved == true and message.language = 'cg'
-      $('.text').html(message.message)
+    if message.type == 'question' and message.approved == true # and message.language == 'cg'
+      $('.text-' + message.language).html(message.message)
