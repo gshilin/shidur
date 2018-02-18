@@ -55,8 +55,14 @@ class window.Q3
 
   replaceMessage: (payload) =>
     message = JSON.parse payload.data
+    console.log(message)
     if message.length == 0
       $('.text').html('')
       return
+    # single language question
     if message.type == 'question' and message.approved == true # and message.language == 'cg'
       $('.text-' + message.language).html(message.message)
+    # clear message -- array of empty questions
+    if Array.isArray(message.questions)
+      $('span.text').val (idx, val) =>
+          $($('span.text')[idx]).html("")
