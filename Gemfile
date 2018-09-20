@@ -8,6 +8,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer', platforms: :ruby
+gem 'rails-html-sanitizer', '~> 1.0.4'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -33,4 +34,4 @@ gem 'thin'
 gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'god', '0.13.4'
-gem 'nokogiri', '1.6.8'
+gem 'nokogiri', '1.8.2'
