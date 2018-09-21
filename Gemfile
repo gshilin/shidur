@@ -9,7 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer', platforms: :ruby
 gem 'rails-html-sanitizer', '~> 1.0.4'
-
+gem 'sprockets', '~> 2.12.5'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'autoprefixer-rails'
