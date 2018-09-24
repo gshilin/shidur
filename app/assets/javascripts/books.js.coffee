@@ -6,7 +6,7 @@ class window.Books
     template = """
         {{#each slides}}
         <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}" data-book_name="{{ ../book_name }}">
-          <div class="wrap">
+          <div class="wrap {{ calcRevert }}">
             <div class="backdrop">
               <span class="handle glyphicon glyphicon-move"/>
               {{{content}}}
@@ -55,8 +55,8 @@ class window.Books
   loadTemplates: =>
     template = """
       {{#each slides}}
-      <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}" data-book_name="{{ ../book_name }}>
-        <div class="wrap">
+      <li class="draggable" data-page="{{ page }}" data-letter="{{ letter }}{{ calcSubletter }}" data-book_name="{{ ../book_name }}">
+        <div class="wrap {{ calcRevert }}">
           <div class="backdrop">
             <span class="handle glyphicon glyphicon-move"/>
             {{{content}}}

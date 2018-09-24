@@ -34,6 +34,13 @@ Handlebars.registerHelper('calcSubletter', function () {
     return subletter === 1 ? "" : ("-" + subletter);
 });
 
+Handlebars.registerHelper('calcRevert', function () {
+    "use strict";
+
+    var revert = this.revert;
+    return revert === 1 ? " revert" : "";
+});
+
 window.template_manager = new TemplateManager();
 
 $(function () {
