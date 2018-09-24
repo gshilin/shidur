@@ -31,7 +31,7 @@ class window.BigWindow
       false
 
   displayLiveSlide: (content) =>
-    content = content.replace(/<br>/g, '')
+    content = content.replace(/<br>/g, ' ')
     $(@bigWindow.document.body).find(".content").html(content)
 
   clearLiveQuestion: =>
