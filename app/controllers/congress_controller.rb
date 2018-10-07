@@ -11,5 +11,6 @@ class CongressController < ApplicationController
     @accept << 'ru' if params[:ru]
     @accept << 'en' if params[:en]
     @accept << 'es' if params[:es]
+    @full_screen = !!params[:full_screen]
   end
 end

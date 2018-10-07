@@ -41,6 +41,23 @@ css:
     border-top: 15px solid #c9cbcd;
   }
 
+  .questions.fs {
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    background: green url(/full-screen-bg.jpg) no-repeat 0 0;
+    max-height: 100%;
+    border-top: 0 none;
+    padding: 210px 150px 210px 320px;
+    font-size: 73px;
+    font-weight: bold;
+    line-height: 100px;
+  }
+
+  .questions:before {
+    border-top: 0 none;
+  }
+
   .question {
     height: 220px;
     display: none;
@@ -50,6 +67,6 @@ css:
     direction: rtl;
   }
 
-.questions
+.questions class="#{@full_screen ? 'fs' : ''}"
   - @accept.each do |lang|
     .question class="question-#{lang}"

@@ -1,6 +1,6 @@
 .main style="direction: ltr; padding: 10px;"
-  h3 Select languages to use:
   = form_tag new_congress_path, method: :get
+    h3 Select languages to use:
     .checkbox
       label
         = check_box_tag(:he)
@@ -17,5 +17,13 @@
       label
         = check_box_tag(:es)
         | &nbsp;&nbsp;&nbsp;&nbsp;Español
+    br
+    br
+    h3 Select whether you want full screen mode:
+    .chekbox
+      label
+        = check_box_tag(:full_screen)
+        | &nbsp;&nbsp;&nbsp;&nbsp;Full screen
+    br
     br
     button.btn.btn-default Submit
