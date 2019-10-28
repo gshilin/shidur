@@ -43,8 +43,8 @@ class window.Chat
 
     @bindEvents()
 
-    @endAudio = new Audio('/music/ding.mp3');
-    @endAudio.setAttribute('preload', 'true');
+#    @endAudio = new Audio('/music/ding.mp3');
+#    @endAudio.setAttribute('preload', 'true');
 
   connectWS: =>
     console?.log "Connecting...."
@@ -201,4 +201,4 @@ class window.Chat
     if (data != old_data && message.language != 'cg')
       content.html(data)
       $('.show-question-' + message.language).removeClass('btn-default').addClass('btn-success')
-      @endAudio.play()
+#      @endAudio.play()

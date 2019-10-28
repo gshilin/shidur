@@ -48,7 +48,10 @@ header, footer {
   width: 90px;
   height: 90px;
   float: left;
-  .lang-heb & {
+
+  .lang-heb &,
+  .lang-he &,
+  .lang-ar & {
     margin: 0 0 0 .5em;
   }
 }
@@ -66,11 +69,13 @@ header, footer {
   overflow: hidden;
 }
 
-.lang-heb .lang-title {
+.lang-heb .lang-title, .lang-he .lang-title,
+.lang-ar .lang-title {
   float: right;
 }
 
-.lang-heb {
+.lang-heb, .lang-he,
+.lang-ar {
   direction: rtl;
   font-family: Oron, Arial, sans-serif;
   letter-spacing: 1px;

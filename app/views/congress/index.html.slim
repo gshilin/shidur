@@ -1,29 +1,23 @@
 .main style="direction: ltr; padding: 10px;"
   = form_tag new_congress_path, method: :get
-    h3 Select languages to use:
-    .checkbox
-      label
-        = check_box_tag(:he)
-        | &nbsp;&nbsp;&nbsp;&nbsp; עברית
-    .checkbox
-      label
-        = check_box_tag(:en)
-        | &nbsp;&nbsp;&nbsp;&nbsp;English
-    .checkbox
-      label
-        = check_box_tag(:ru)
-        | &nbsp;&nbsp;&nbsp;&nbsp;Русский
-    .checkbox
-      label
-        = check_box_tag(:es)
-        | &nbsp;&nbsp;&nbsp;&nbsp;Español
-    br
-    br
-    h3 Select whether you want full screen mode:
+    h3 Select screen mode:
     .chekbox
       label
         = check_box_tag(:full_screen)
         | &nbsp;&nbsp;&nbsp;&nbsp;Full screen
+    .chekbox
+      label
+        = check_box_tag(:languages_4)
+        | &nbsp;&nbsp;&nbsp;&nbsp;4 Languages' screen
+    br
+    br
+    h3 Select languages to use (maximum - 4):
+    - @languages.each do |lang, language|
+      .checkbox
+        label
+          = check_box_tag(lang)
+          | &nbsp;&nbsp;&nbsp;&nbsp;
+          = language
     br
     br
     button.btn.btn-default Submit

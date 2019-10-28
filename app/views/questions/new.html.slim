@@ -5,11 +5,7 @@
         button#question.btn.btn-danger.btn-large.pull-left שלח שאלה לסדנה​
         a#clear-q.btn.btn-default.btn-large.pull-left href="#" style="margin: auto 10px;" onclick="$('#question_question').val(''); return false;" נקה שאלה
         select#language.selectpicker.show-menu-arrow.form-control.pull-left data-width="fit"
-          option value="he" Hebrew
-          option value="en" English
-          option value="ru" Russian
-          option value="es" Español
-          option value="cg" Congress
+          = options_for_select(CongressController::LANGUAGES.map{|key, value| [value, key]})
       h3#title שאלה לסדנה​
 
       = f.input :question, label: false, as: :text, input_html: { class: 'form-control',

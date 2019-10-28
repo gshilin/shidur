@@ -46,7 +46,7 @@ class window.Q3
       success: (data, status, response) =>
         console?.log("Got data:", data)
         for question in data.questions
-          if question.ID == 0
+          if question.ID == 0 || question.id == 0
             $('.text-' + question.language).html('')
           else
             $('.text-' + question.language).html(question.message)
@@ -60,7 +60,7 @@ class window.Q3
       $('.text').html('')
       return
     # single language question
-    if message.type == 'question' and message.approved == true # and message.language == 'cg'
+    if message.type == 'question' and message.approved == true
       $('.text-' + message.language).html(message.message)
     # clear message -- array of empty questions
     if Array.isArray(message.questions)

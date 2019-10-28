@@ -67,6 +67,6 @@ css:
     direction: rtl;
   }
 
-.questions class="#{@full_screen ? 'fs' : ''}"
+.questions class="#{@full_screen ? 'fs' : ''} #{@languages_4 ? 'lang4' : ''}"
   - @accept.each do |lang|
     .question class="question-#{lang}"

@@ -13,7 +13,7 @@ class window.Chat
 
   template_message: (message) ->
     html =
-    """
+      """
       <div class="message" >
         <label class="label label-info" style="direction: ltr; font-weight: normal; color: black; padding-left: 5px;">[#{message.user_name}]</label>
         <div style="display: inline-block;">#{message.message}</label>
@@ -23,7 +23,7 @@ class window.Chat
 
   template_question: (message) ->
     html =
-    """
+      """
       <div class="message" >
         <label class="label label-danger" style="direction: ltr; font-weight: normal; color: yellow; padding-left: 5px;">[#{message.user_name}]</label>
         <div style="display: inline-block;">#{message.message}</label>
@@ -88,23 +88,15 @@ class window.Chat
   _sendOne: (message, type, event) =>
     event.preventDefault()
     language = $('select.selectpicker').val()
+    approved = !["en", "he", "ru", "es"].includes(language)
     payload = {
       user_name: @userName(language),
       message: message,
       type: type,
-      language: language
+      language: language,
+      approved: approved
     }
     @dispatcher.send JSON.stringify payload
-    if language == 'cg'
-      $.ajax
-        url: @localhost + "/questions/approve/cg"
-        type: "GET"
-        dataType: "json"
-        success: (data, status, response) =>
-          console?.log("approved")
-        error: (response, status, error) ->
-          console?.log("Approval:", status, "; Error:", error)
-
 
   sendQuestion: (event) =>
     @_sendOne(@question.val(), 'question', event)
