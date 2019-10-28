@@ -68,14 +68,13 @@ body {
   width: 100%;
   height: 6.5em;
   padding: 0.5em 2em 0;
-  background: linear-gradient(left, hsla(36, 18, 74, 0.6) 0%, hsla(36, 18, 74, 0.90) 15%, hsla(36, 18, 74, 0.90) 85%, hsla(36, 18, 74, 0.6) 100%);
   color: hsl(0, 0, 0);
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
   font-size: 30px;
+  font-weight: bold;
   line-height: 1.1;
-  box-shadow: inset 0 0 40px hsla(0, 0, 0, 0.4);
   text-align: right;
   cursor: move;
+  border: 1px solid black;
   h3 {
     margin: 0 0 0 1em;
     line-height: 1em;
