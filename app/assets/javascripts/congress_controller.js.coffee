@@ -44,8 +44,11 @@ class window.Congress
       @slideIndex = 1
     if @slides[@slideIndex - 1]
       @slides[@slideIndex - 1].css('display', 'block')
-    # Change image every 15 seconds
-    @lastTimeout = setTimeout(@carousel, 15000)
+      if @slides[@slideIndex - 1].text() == ""
+        @carousel()
+      else
+        # Change image every 15 seconds
+        @lastTimeout = setTimeout(@carousel, 15000)
 
   loadQuestions: =>
     return if @localhost == "http://undefined"
@@ -57,7 +60,7 @@ class window.Congress
       success: (data, status, response) =>
         console?.log(data)
         for question in data.questions
-          if question.ID == 0
+          if question.id == 0 || !question.approved
             $('.question-' + question.language).html('')
           else
             q = $('.question-' + question.language)
@@ -84,8 +87,7 @@ class window.Congress
       # Clear all in case of array of empty questions
       window.clearTimeout(@lastTimeout) if @lastTimeout
       @slides = []
-      for e in ['en', 'ru', 'he', 'es', 'cg']
-        $('.question-' + e).html('').css('display', 'none')
+      $('.question').html('').css('display', 'none')
       return
 
     q = $('.question-' + question.language)
