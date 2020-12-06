@@ -16,6 +16,6 @@
 
 $(function () {
     "use strict";
-    var url = window.location.hostname + ":4000";
+    var url = window.location.hostname;
     window.q3 = new Q3(url);
 });
