@@ -63,11 +63,12 @@ class window.BigWindow
       @slideIndex = 1
     if @slides[@slideIndex - 1]
       @slides[@slideIndex - 1].css('display', 'block')
-      if @slides[@slideIndex - 1].text() == ""
-        @carousel()
-      else
-        # Change image every 15 seconds
-        @lastTimeout = setTimeout(@carousel, 15000)
+    if @slides[@slideIndex - 1].text() == ""
+      @carousel()
+    else
+      # Change image every 15 seconds
+      @lastTimeout = setTimeout(@carousel, 15000)
+
 
   setFullScreen: =>
     @full_screen = true

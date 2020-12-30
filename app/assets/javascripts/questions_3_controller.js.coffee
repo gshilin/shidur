@@ -1,7 +1,7 @@
 # Event Controller for Three Questions Receiver
 
 $ ->
-  url = window.location.hostname + ":4000"
+  url = window.location.hostname # + ":4000"
   window.q3 = new Q3(url)
 
 class window.Q3
@@ -9,8 +9,8 @@ class window.Q3
   dispatcher: null
 
   constructor: (url) ->
-    @localhost = "http://" + url
-    @wsURL     = "ws://" + url + "/ws"
+    @localhost = "https://" + url + "/ws"
+    @wsURL     = "wss://" + url + "/ws/ws"
     return if @localhost == "http://undefined"
 
     @connectWS()
