@@ -76,6 +76,7 @@ class window.Chat
     $('.show-question-ru').on 'click', {lang: 'ru'}, @showQuestion
     $('.show-question-es').on 'click', {lang: 'es'}, @showQuestion
     $('.switch-slides-slide').on 'click', @setSlide
+    $('.switch-direction').on 'click', @switchDirection
     $('.switch-slides-question').on 'click', @setQuestion
     $('.switch-half-screen').on 'click', @setHalfScreen
     $('.switch-full-screen').on 'click', @setFullScreen
@@ -92,6 +93,10 @@ class window.Chat
     big_window.setHalfScreen()
     $('.switch-half-screen').removeClass('btn-danger').addClass('btn-success')
     $('.switch-full-screen').removeClass('btn-success').addClass('btn-danger')
+
+  switchDirection: =>
+    big_window.switchDirection()
+    $('.backdrop').toggleClass('ltr')
 
   clearQuestions: =>
     $.ajax

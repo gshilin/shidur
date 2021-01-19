@@ -80,6 +80,9 @@ class window.BigWindow
     @show_slide  = true
     @doDisplay()
 
+  switchDirection: =>
+    $(@bigWindow.document.body).find('.backdrop').toggleClass('ltr')
+
   setSlide: =>
     @show_slide = true
     @doDisplay()

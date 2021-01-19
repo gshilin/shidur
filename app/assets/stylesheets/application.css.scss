@@ -75,24 +75,33 @@ body {
   text-align: right;
   cursor: move;
   border: 1px solid black;
+
+  & + .ltr {
+    direction: ltr;
+    text-align: left;
+  }
+
   h3 {
     margin: 0 0 0 1em;
     line-height: 1em;
     font-size: 1.4em;
     text-align: center;
   }
+
   h4 {
     margin: 0 0 0 1em;
     line-height: 1em;
     font-size: 1.0em;
     text-align: center;
   }
+
   h5 {
     margin: 0 0 0 1em;
     line-height: 1em;
     font-size: 0.8em;
     text-align: center;
   }
+
   .source {
     margin-top: 0.3em;
     font-size: smaller;
@@ -102,11 +111,17 @@ body {
     width: 100%;
     padding-top: 0.25em;
   }
+
+  &.ltr {
+    direction: ltr;
+    text-align: left;
+  }
 }
 
 .slides {
   position: relative;
   z-index: 5000;
+
   .handle {
     position: absolute;
     top: 0;
@@ -117,6 +132,7 @@ body {
     border-radius: 5px;
     border: 1px solid white;
   }
+
   .active {
     background: red;
   }
@@ -126,6 +142,7 @@ body {
   width: 20%;
   float: right;
   margin-left: 10px;
+
   &.over {
     border: 2px dashed #000;
   }
@@ -143,6 +160,7 @@ body {
   clear: both;
   direction: rtl;
   color: #f00;
+
   ul {
     list-style: disc;
     margin: 0 0 18px 0;
@@ -173,18 +191,22 @@ body {
   height: 22px;
   border-radius: 50%;
   margin: auto;
+
   &.led-red {
     background-color: #F00;
     box-shadow: #000 0 -1px 7px 1px, inset #600 0 -1px 9px, #F00 0 2px 12px;
   }
+
   &.led-yellow {
     background-color: #A90;
     box-shadow: #000 0 -1px 7px 1px, inset #660 0 -1px 9px, #DD0 0 2px 12px;
   }
+
   &.led-green {
     background-color: #690;
     box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #7D0 0 2px 12px;
   }
+
   &.led-blue {
     background-color: #4AB;
     box-shadow: #000 0 -1px 7px 1px, inset #006 0 -1px 9px, #06F 0 2px 14px;
