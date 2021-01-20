@@ -97,6 +97,10 @@ class window.Chat
   switchDirection: =>
     big_window.switchDirection()
     $('.backdrop').toggleClass('ltr')
+    dir = 'RTL'
+    if $('.backdrop').hasClass('ltr')
+      dir = 'LTR'
+    $('.switch-direction').text(dir)
 
   clearQuestions: =>
     $.ajax
